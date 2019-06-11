@@ -8,7 +8,9 @@ library(shinyWidgets)
 # Define UI for application that draws a histogram
 shinyUI(
   dashboardPage(skin = "blue",
-                dashboardHeader(title = 'Central Limit Theorem'),
+                dashboardHeader(title = 'Central Limit Theorem',
+                                tags$li(class = "dropdown",tags$a(href='http://stat.psu.edu/',icon("home"))),
+                                tags$li(class = "dropdown",actionLink("info",icon("info",class = "myClass")))),
                 dashboardSidebar(
                   sidebarMenu(
                     id = "tabs",
@@ -22,7 +24,7 @@ shinyUI(
                   ),
                   tabItems(
                     tabItem(tabName = "Overview",
-                            tags$a(href='http://stat.psu.edu/',tags$img(src='PS-HOR-RGB-2C.png', align = "left", width = 180)),
+                           # tags$a(href='http://stat.psu.edu/',tags$img(src='PS-HOR-RGB-2C.png', align = "left", width = 180)),
                             br(),br(),br(),
                             fluidPage(
                               withMathJax(),
@@ -57,12 +59,12 @@ shinyUI(
                               ),
                             h4(
                               wellPanel(
-                                div(style="display: inline-block;vertical-align:top;",
-                                    tags$a(href='https://shinyapps.science.psu.edu/',tags$img(src='homebut.PNG', width = 19))
-                                ),
-                                div(style="display: inline-block;vertical-align:top;",
-                                    circleButton("info",icon = icon("info"), status = "myClass",size = "xs")
-                                ),
+                                # div(style="display: inline-block;vertical-align:top;",
+                                #     tags$a(href='https://shinyapps.science.psu.edu/',tags$img(src='homebut.PNG', width = 19))
+                                # ),
+                                # div(style="display: inline-block;vertical-align:top;",
+                                #     circleButton("info",icon = icon("info"), status = "myClass",size = "xs")
+                                # ),
                                 fluidRow(
                                   column(3,
                                          selectInput("popDist", "Population Type",

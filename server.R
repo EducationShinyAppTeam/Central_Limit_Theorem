@@ -17,7 +17,9 @@ shinyServer(function(session, input, output) {
     sendSweetAlert(
       session = session,
       title = "Instructions:",
-      text = "Pick a population type and use the sliders to see how the population histogram and sample size affect the sampling distribution of the sample average.",
+      text = "Population graph is used to see the overall population density.
+
+              Pick a population type and use the sliders to see how the population histogram and sample size affect the sampling distribution of the sample average.",
       type = "info"
     )
   })
