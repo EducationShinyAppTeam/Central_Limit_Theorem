@@ -41,7 +41,8 @@ shinyUI(
                               br(),
                               div(style = "text-align: center",bsButton("go", "Explore", icon("bolt"), style = "primary")),
                               h3(tags$b("Acknowledgements:")),
-                              h4("This app was developed and coded by Yingjie (Chelsea) Wang with the help of Yubaihe Zhou. Selection of population densities was originally coded by Caihui Xiao.")
+                              h4("This app was developed and coded by Yingjie (Chelsea) Wang with the help of Yubaihe Zhou. Selection of population densities was originally coded by Caihui Xiao."),
+                              h4("This application was modified by Zhiruo Wang.")
                                  )),
                     
                     tabItem(tabName = "largeNumber",
