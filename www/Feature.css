@@ -1,26 +1,45 @@
-/*.skin-blue .main-header>.navbar {
-background-color: #1E407C;
+.skin-black .main-header>.navbar {
+background-color: #337ab7;
 }
 .content-wrapper,.right-side {
 background-color: white;
 }
-.skin-blue .main-header .logo {
-background-color: #1E407C;
+.skin-black .main-header .logo {
+background-color: #337ab7;
 color: white;
 }
-.skin-blue .main-header .logo:hover {
+.skin-black .main-header .logo:hover {
 background-color: black;
 }
-aside.main-sidebar {
-background-color: black !important;
-}
+
 .main-header .logo {
 font-family: "Georgia", Times, "Times New Roman", serif;
 font-weight: bold;
 font-size: 15px;
-}*/
+}
+.popover-title {
+color: white;
+font-size: 15px;
+background-color:#337ab7;
+}
+.popover-content {
+color: #1C2C5B;
+font-size: 13px;
+}
 .btn-myClass {
     background-color: #000000;
     border: none;
     color: white;
+}
+
+.grow:hover
+{
+        -webkit-transform: scale(1.3);
+        -ms-transform: scale(1.3);
+        transform: scale(1.3);
+}
+
+.circle:hover
+{
+        border-radius:50%;
 }

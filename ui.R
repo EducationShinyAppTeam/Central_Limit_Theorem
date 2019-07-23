@@ -20,7 +20,8 @@ shinyUI(
                 ),
                 dashboardBody(
                   tags$head( 
-                    tags$link(rel = "stylesheet", type = "text/css", href = "Feature.css")
+                    tags$link(rel = "stylesheet", type = "text/css", href = "Feature.css"),
+                    tags$style(HTML('#go{color:white;background-color: #337ab7}'))
                   ),
                   tabItems(
                     tabItem(tabName = "Overview",
@@ -39,7 +40,8 @@ shinyUI(
                               h4(tags$li("Use the button to see one of the individual samples chossen.")),
                               h4(tags$li("Observe the histograms of one sample and for \\(\\bar{x}\\) from all samples.")),
                               br(),
-                              div(style = "text-align: center",bsButton("go", "Explore", icon("bolt"), style = "primary")),
+                              div(style = "text-align: center",
+                                  bsButton("go", "Explore", icon("bolt"), class="circle grow")),
                               h3(tags$b("Acknowledgements:")),
                               h4("This app was developed and coded by Yingjie (Chelsea) Wang with the help of Yubaihe Zhou. Selection of population densities was originally coded by Caihui Xiao."),
                               h4("This application was modified by Zhiruo Wang.")
