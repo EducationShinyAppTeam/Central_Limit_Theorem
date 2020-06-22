@@ -503,7 +503,7 @@ shinyServer(function(session, input, output) {
     
     
     
-    # Write the mean of first fif data into vector
+    # Write the mean of first 50 data into vector
     firstfif3 <- reactive({
       matrix <- firstfifData3()
       matrix.means <- matrix(0, nrow = 50, ncol = input$symsize)
@@ -653,7 +653,7 @@ shinyServer(function(session, input, output) {
     })
     
     
-    # Matrix for first fif reps of data
+    # Matrix for first 50 reps of data
     firstfifData4 <- reactive({
       rand <- sample(
         x = c(0, 1),
@@ -695,7 +695,7 @@ shinyServer(function(session, input, output) {
       
       
       
-      # Matrix for first fif reps of data
+      # Matrix for first 50 reps of data
       firstfifData4 <- reactive({
         rand <- sample(
           x = c(0, 1),
@@ -736,7 +736,7 @@ shinyServer(function(session, input, output) {
         
         
         
-        # Write the mean of first fif data into vector
+        # Write the mean of first 50 data into vector
         firstfif4 <- reactive({
           matrix <- firstfifData4()
           matrix.means <- matrix(0, nrow = 50, ncol = input$bisize)
@@ -751,7 +751,7 @@ shinyServer(function(session, input, output) {
         })
         
         
-        # Merge the first fif means with the rest of data
+        # Merge the first 50 means with the rest of data
         data4 <- reactive({
           datameans = firstfif4()
           for (i in 1:(input$bireps - 50)) {
@@ -1355,7 +1355,7 @@ shinyServer(function(session, input, output) {
         ))
         
         
-        # Write the mean of first fif data into vector
+        # Write the mean of first 50 data into vector
         firstfifJazz <- reactive({
           matrix <- firstfifDataJazz()
           matrix.means <-
@@ -1370,7 +1370,7 @@ shinyServer(function(session, input, output) {
           return(fifmeans)
         })
         
-        # Merge the first fif means with the rest of data
+        # Merge the first 50 means with the rest of data
         Jazzdata <- reactive({
           datameans = firstfifJazz()
           for (i in 1:(input$ipodreps - 50)) {
@@ -1384,7 +1384,7 @@ shinyServer(function(session, input, output) {
         })
         
         ### Rock
-        # Matrix for first fif reps of data
+        # Matrix for first 50 reps of data
         firstfifDataRock <- reactive(matrix(
           rbinom(
             50 * input$ipodsize,
@@ -1396,7 +1396,7 @@ shinyServer(function(session, input, output) {
         ))
         
         
-        # Write the mean of first fif data into vector
+        # Write the mean of first 50 data into vector
         firstfifRock <- reactive({
           matrix <- firstfifDataRock()
           matrix.means <- matrix(0, nrow = 50, ncol = input$ipodsize)
@@ -1410,7 +1410,7 @@ shinyServer(function(session, input, output) {
           return(fifmeans)
         })
         
-        # Merge the first fif means with the rest of data
+        # Merge the first 50 means with the rest of data
         Rockdata <- reactive({
           datameans = firstfifRock()
           for (i in 1:(input$ipodreps - 50)) {
@@ -1425,7 +1425,7 @@ shinyServer(function(session, input, output) {
         
         
         ### Country
-        # Matrix for first fif reps of data
+        # Matrix for first 50 reps of data
         firstfifDataCountry <- reactive(matrix(
           rbinom(
             50 * input$ipodsize,
@@ -1437,7 +1437,7 @@ shinyServer(function(session, input, output) {
         ))
         
         
-        # Write the mean of first fif data into vector
+        # Write the mean of first 50 data into vector
         firstfifCountry <- reactive({
           matrix <- firstfifDataCountry()
           matrix.means <- matrix(0, nrow = 50, ncol = input$ipodsize)
@@ -1451,7 +1451,7 @@ shinyServer(function(session, input, output) {
           return(fifmeans)
         })
         
-        # Merge the first fif means with the rest of data
+        # Merge the first 50 means with the rest of data
         Countrydata <- reactive({
           datameans = firstfifCountry()
           for (i in 1:(input$ipodreps - 50)) {
@@ -1465,7 +1465,7 @@ shinyServer(function(session, input, output) {
         })
         
         ### Hiphop
-        # Matrix for first fif reps of data
+        # Matrix for first 50 reps of data
         firstfifDataHiphop <- reactive(matrix(
           rbinom(
             50 * input$ipodsize,
@@ -1477,7 +1477,7 @@ shinyServer(function(session, input, output) {
         ))
         
         
-        # Write the mean of first fif data into vector
+        # Write the mean of first 50 data into vector
         firstfifHiphop <- reactive({
           matrix <- firstfifDataHiphop()
           matrix.means <- matrix(0, nrow = 50, ncol = input$ipodsize)
@@ -1491,7 +1491,7 @@ shinyServer(function(session, input, output) {
           return(fifmeans)
         })
         
-        # Merge the first fif means with the rest of data
+        # Merge the first 50 means with the rest of data
         Hiphopdata <- reactive({
           datameans = firstfifHiphop()
           for (i in 1:(input$ipodreps - 50)) {
