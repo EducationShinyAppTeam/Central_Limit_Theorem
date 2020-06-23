@@ -503,7 +503,7 @@ shinyServer(function(session, input, output) {
     
     
     
-    # Write the mean of first fif data into vector
+    # Write the mean of first 50 data into vector
     firstfif3 <- reactive({
       matrix <- firstfifData3()
       matrix.means <- matrix(0, nrow = 50, ncol = input$symsize)
@@ -653,7 +653,7 @@ shinyServer(function(session, input, output) {
     })
     
     
-    # Matrix for first fif reps of data
+    # Matrix for first 50 reps of data
     firstfifData4 <- reactive({
       rand <- sample(
         x = c(0, 1),
@@ -695,7 +695,7 @@ shinyServer(function(session, input, output) {
       
       
       
-      # Matrix for first fif reps of data
+      # Matrix for first 50 reps of data
       firstfifData4 <- reactive({
         rand <- sample(
           x = c(0, 1),
@@ -736,7 +736,7 @@ shinyServer(function(session, input, output) {
         
         
         
-        # Write the mean of first fif data into vector
+        # Write the mean of first 50 data into vector
         firstfif4 <- reactive({
           matrix <- firstfifData4()
           matrix.means <- matrix(0, nrow = 50, ncol = input$bisize)
@@ -751,7 +751,7 @@ shinyServer(function(session, input, output) {
         })
         
         
-        # Merge the first fif means with the rest of data
+        # Merge the first 50 means with the rest of data
         data4 <- reactive({
           datameans = firstfif4()
           for (i in 1:(input$bireps - 50)) {
