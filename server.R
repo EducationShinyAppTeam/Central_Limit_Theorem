@@ -1,15 +1,9 @@
 library(shiny)
 library(shinydashboard)
-library(plotrix)
 library(ggplot2)
-library(reshape2)
-library(scales)
 library(stats)
 library(Rlab)
 library(dplyr)
-library(formattable)
-
-library(truncnorm)
 library(shinyWidgets)
 
 shinyServer(function(session, input, output) {
@@ -21,16 +15,16 @@ shinyServer(function(session, input, output) {
       closeOnClickOutside = TRUE,
       text = "Population graph is used to see the overall population density.
               Pick a population type and use the sliders to see how the population histogram and sample size affect the sampling distribution of the sample average."
-      
+
     )
   })
   #Go Button
   observeEvent(input$go, {
     updateTabItems(session, "tabs", "largeNumber")
   })
-  
-  
-  
+
+
+
   # Function to create density plots for each group
   # Inputs: Dataframe consisting of columns x and y to define axes, limits for x axis in form c(lower, upper), optional path for symmetric case
   # Output: ggplot of density
@@ -86,44 +80,44 @@ shinyServer(function(session, input, output) {
         panel.background = element_rect(fill = "white", color = "black")
       ) +
       scale_x_discrete(drop = FALSE)
-    
+
     plot
   }
   #list all input value
   observeEvent({
     # choose population type
     input$popDist
-    
+
     # Left skewed
     input$leftskew
     input$leftsize
     input$leftreps
-    
+
     # Right skewed
     input$rightskew
     input$rightsize
     input$rightreps
-    
+
     # Symmetric
     input$inverse
     input$symsize
     input$symreps
-    
+
     # Bimodal
     input$prop
     input$bisize
     input$bireps
-    
+
     # Accident Rate
     input$poissonMean
     input$poreps
     input$posize
-    
-    
+
+
     # Astrugluas
     input$asreps
     input$assize
-    
+
     #ipodshuffle
     input$ptype
     input$s1
@@ -137,7 +131,7 @@ shinyServer(function(session, input, output) {
     ###################################################################
     ## Left skewed
     ####################################################################
-    
+
     # Population of left skewed
     output$plotleft1 <- renderPlot({
       # plot(seq(5,0,-.001), dgamma(seq(0,5,.001), input$leftskew, input$leftskew),
@@ -156,7 +150,7 @@ shinyServer(function(session, input, output) {
         xlim = c(input$leftskew - 9 * sqrt(input$leftskew), 0)
       )
     })
-    
+
     # Matrix for first 50 reps of data
     firstfifData1 <- reactive(matrix(
       -rgamma(
@@ -167,7 +161,7 @@ shinyServer(function(session, input, output) {
       nrow = 50,
       ncol = input$leftsize
     ))
-    
+
     # Write the mean of first 50 data into vector
     firstfif1 <- reactive({
       matrix <- firstfifData1()
@@ -177,11 +171,11 @@ shinyServer(function(session, input, output) {
           matrix.means[i, j] = mean(matrix[i, 1:j])
         }
       }
-      
+
       fifmeans = as.vector(matrix.means)
       return(fifmeans)
     })
-    
+
     # Merge the first 50 means with the rest of data
     data1 <- reactive({
       datameans = firstfif1()
@@ -196,7 +190,7 @@ shinyServer(function(session, input, output) {
       }
       return(datameans)
     })
-    
+
     # One Sample Histogram
     output$plotleft2 <- renderPlot({
       matrix <- firstfifData1()
@@ -227,9 +221,9 @@ shinyServer(function(session, input, output) {
           xlab = "individual value"
         )
       }
-      
+
     })
-    
+
     # All Sample Histogram
     output$plotleft3 <- renderPlot({
       vector <- data1()
@@ -278,14 +272,14 @@ shinyServer(function(session, input, output) {
           add = TRUE
         )
       }
-      
+
     })
-    
-    
+
+
     ###################################################################
     ## Right skewed
     ####################################################################
-    
+
     # Population of right skewed
     output$plotright1 <- renderPlot({
       # plot(seq(0,5,.001),dgamma(seq(0,5,.001),input$rightskew, input$rightskew),
@@ -304,8 +298,8 @@ shinyServer(function(session, input, output) {
         xlim = c(0, input$rightskew + 9 * sqrt(input$rightskew))
       )
     })
-    
-    
+
+
     # Matrix for first 50 reps of data
     firstfifData2 <- reactive(matrix(
       rgamma(
@@ -316,7 +310,7 @@ shinyServer(function(session, input, output) {
       nrow = 50,
       ncol = input$rightsize
     ))
-    
+
     # Write the mean of first 50 data into vector
     firstfif2 <- reactive({
       matrix <- firstfifData2()
@@ -326,11 +320,11 @@ shinyServer(function(session, input, output) {
           matrix.means[i, j] = mean(matrix[i, 1:j])
         }
       }
-      
+
       fifmeans = as.vector(matrix.means)
       return(fifmeans)
     })
-    
+
     # Merge the first 50 means with the rest of data
     data2 <- reactive({
       datameans = firstfif2()
@@ -345,8 +339,8 @@ shinyServer(function(session, input, output) {
       }
       return(datameans)
     })
-    
-    
+
+
     # One Sample Histogram
     output$plotright2 <- renderPlot({
       matrix <- firstfifData2()
@@ -377,9 +371,9 @@ shinyServer(function(session, input, output) {
           xlab = "individual value"
         )
       }
-      
+
     })
-    
+
     # All Sample Histogram
     output$plotright3 <- renderPlot({
       vector <- data2()
@@ -428,14 +422,14 @@ shinyServer(function(session, input, output) {
           add = TRUE
         )
       }
-      
-      
+
+
     })
-    
+
     ###################################################################
     ## Symmetric skewed
     ####################################################################
-    
+
     # Population of Symmetric skewed
     output$plotsymmetric1 <- renderPlot({
       x <- seq(0, 1, length = 100)
@@ -443,7 +437,7 @@ shinyServer(function(session, input, output) {
         dbeta(x,
               shape1 = input$inverse,
               shape2 = input$inverse)
-      
+
       # Dealing with peakness = 1 special case
       if (input$inverse == 1) {
         plot(
@@ -466,7 +460,7 @@ shinyServer(function(session, input, output) {
         segments(0, 0, 0, 1, col = "red", lwd = 5)
         segments(1, 0, 1, 1, col = "red", lwd = 5)
         segments(0, 1, 1, 1, col = "red", lwd = 5)
-        
+
       } else{
         plot(
           x,
@@ -488,8 +482,8 @@ shinyServer(function(session, input, output) {
         lines(x, dens, col = "red")
       }
     })
-    
-    
+
+
     # Matrix for first 50 reps of data
     firstfifData3 <- reactive(matrix(
       rbeta(
@@ -500,9 +494,9 @@ shinyServer(function(session, input, output) {
       nrow = 50,
       ncol = input$symsize
     ))
-    
-    
-    
+
+
+
     # Write the mean of first 50 data into vector
     firstfif3 <- reactive({
       matrix <- firstfifData3()
@@ -512,11 +506,11 @@ shinyServer(function(session, input, output) {
           matrix.means[i, j] = mean(matrix[i, 1:j])
         }
       }
-      
+
       fifmeans = as.vector(matrix.means)
       return(fifmeans)
     })
-    
+
     # Merge the first 50 means with the rest of data
     data3 <- reactive({
       datameans = firstfif3()
@@ -531,9 +525,9 @@ shinyServer(function(session, input, output) {
       }
       return(datameans)
     })
-    
-    
-    
+
+
+
     # One Sample Histogram
     output$plotsymmetric2 <- renderPlot({
       matrix <- firstfifData3()
@@ -564,9 +558,9 @@ shinyServer(function(session, input, output) {
           xlab = "individual value"
         )
       }
-      
+
     })
-    
+
     # All Sample Histogram
     output$plotsymmetric3 <- renderPlot({
       vector <- data3()
@@ -615,14 +609,14 @@ shinyServer(function(session, input, output) {
           add = TRUE
         )
       }
-      
+
     })
-    
-    
+
+
     ###################################################################
     ## Bimodal
     ####################################################################
-    
+
     # Population for biomodel
     output$plotbiomodel1 <- renderPlot({
       # t <- 0.0001
@@ -641,18 +635,18 @@ shinyServer(function(session, input, output) {
       data <-
         data.frame(x = seq(0, 5, t),
                    y = input$prop * leftdraw + (1 - input$prop) * rightdraw)
-      
+
       # Make the density plot
       makeDensityPlot(data = data, xlims = c(0, 5))
-      
+
       # plot(y, Z, type="l", yaxs="i", xaxs="i",
       #      xlab="value", ylab="density", main="Population Graph",
       #      cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
       #      col="red", lwd=5)
       # lines(y, Z, type="l", col="red", xlab="",ylab="")
     })
-    
-    
+
+
     # Matrix for first 50 reps of data
     firstfifData4 <- reactive({
       rand <- sample(
@@ -661,7 +655,7 @@ shinyServer(function(session, input, output) {
         replace = TRUE,
         prob = c(input$prop, 1 - input$prop)
       )
-      
+
       rights <-
         sum(rand) # Number of elements sampled from the right distribution (represented by 1)
       lefts <-
@@ -670,7 +664,7 @@ shinyServer(function(session, input, output) {
         rgamma(lefts, 1.25, beta = 1) # Samples left distribution
       rightGammas <-
         5 - rgamma(rights, 1.25, beta = 1) # Samples right distribution
-      
+
       # Loop to assign values from gamma distributions to rand
       rightIndex <- 1
       leftIndex <- 1
@@ -690,11 +684,11 @@ shinyServer(function(session, input, output) {
              #                                        shape2=input$rightskew, scale2=1),
              #             nrow = 10, ncol = input$bisize
     )})
-      
-      
-      
-      
-      
+
+
+
+
+
       # Matrix for first 50 reps of data
       firstfifData4 <- reactive({
         rand <- sample(
@@ -703,7 +697,7 @@ shinyServer(function(session, input, output) {
           replace = TRUE,
           prob = c(input$prop, 1 - input$prop)
         )
-        
+
         rights <-
           sum(rand) # Number of elements sampled from the right distribution (represented by 1)
         lefts <-
@@ -712,7 +706,7 @@ shinyServer(function(session, input, output) {
           rgamma(lefts, 1.25, beta = 1) # Samples left distribution
         rightGammas <-
           5 - rgamma(rights, 1.25, beta = 1) # Samples right distribution
-        
+
         # Loop to assign values from gamma distributions to rand
         rightIndex <- 1
         leftIndex <- 1
@@ -732,10 +726,10 @@ shinyServer(function(session, input, output) {
                #                                        shape2=input$rightskew, scale2=1),
                #             nrow = 10, ncol = input$bisize
       )})
-        
-        
-        
-        
+
+
+
+
         # Write the mean of first 50 data into vector
         firstfif4 <- reactive({
           matrix <- firstfifData4()
@@ -745,12 +739,12 @@ shinyServer(function(session, input, output) {
               matrix.means[i, j] = mean(matrix[i, 1:j])
             }
           }
-          
+
           fifmeans = as.vector(matrix.means)
           return(fifmeans)
         })
-        
-        
+
+
         # Merge the first 50 means with the rest of data
         data4 <- reactive({
           datameans = firstfif4()
@@ -762,7 +756,7 @@ shinyServer(function(session, input, output) {
               replace = TRUE,
               prob = c(input$prop, 1 - input$prop)
             )
-            
+
             rights <-
               sum(rand) # Number of elements sampled from the right distribution (represented by 1)
             lefts <-
@@ -771,7 +765,7 @@ shinyServer(function(session, input, output) {
               rgamma(lefts, 1.25, beta = 1) # Samples left distribution
             rightGammas <-
               5 - rgamma(rights, 1.25, beta = 1) # Samples right distribution
-            
+
             # Loop to assign values from gamma distributions to rand
             rightIndex <- 1
             leftIndex <- 1
@@ -785,7 +779,7 @@ shinyServer(function(session, input, output) {
                 rightIndex <- rightIndex + 1
               }
             }
-            
+
             datameans <- append(datameans, mean(rand))
             #datameans = append(datameans, mean(mix.synthetic.facing.gamma(N = input$bisize, mix.prob = 1-input$prop,
             #                                                              lower = 0, upper = 6, shape1=input$leftskew, scale1=1,
@@ -793,8 +787,8 @@ shinyServer(function(session, input, output) {
           }
           return(datameans)
         })
-        
-        
+
+
         # One Sample Histogram
         output$plotbiomodel2 <- renderPlot({
           matrix <- firstfifData4()
@@ -826,7 +820,7 @@ shinyServer(function(session, input, output) {
             )
           }
         })
-        
+
         # All Sample Histogram
         output$plotbiomodel3 <- renderPlot({
           vector <- data4()
@@ -875,30 +869,30 @@ shinyServer(function(session, input, output) {
               add = TRUE
             )
           }
-          
+
         })
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         ###################################################################
         ## Accident Rate
         ####################################################################
-        
+
         # Population of poisson
         #output$poissonpop <- renderPlot({
         #N <- 10000
@@ -921,9 +915,9 @@ shinyServer(function(session, input, output) {
         cacheKeyExpr = {
           list(input$poissonmean)
         })
-        
-        
-        
+
+
+
         # Matrix for first 50 reps of data
         firstfifData5 <- reactive(matrix(
           rpois(50 * input$posize,
@@ -931,8 +925,8 @@ shinyServer(function(session, input, output) {
           nrow = 50,
           ncol = input$posize
         ))
-        
-        
+
+
         # Write the mean of first 50 data into vector
         firstfif5 <- reactive({
           matrix <- firstfifData5()
@@ -942,11 +936,11 @@ shinyServer(function(session, input, output) {
               matrix.means[i, j] = mean(matrix[i, 1:j])
             }
           }
-          
+
           fifmeans = as.vector(matrix.means)
           return(fifmeans)
         })
-        
+
         # Merge the first 50 means with the rest of data
         data5 <- reactive({
           datameans = firstfif5()
@@ -956,9 +950,9 @@ shinyServer(function(session, input, output) {
           }
           return(datameans)
         })
-        
-        
-        
+
+
+
         # One Sample Histogram
         output$plotpoisson1 <- renderPlot({
           matrix <- firstfifData5()
@@ -989,7 +983,7 @@ shinyServer(function(session, input, output) {
               xlab = "individual value"
             )
           }
-          
+
         })
         # All Sample Histogram
         output$plotpoisson2 <- renderPlot({
@@ -1039,19 +1033,19 @@ shinyServer(function(session, input, output) {
               add = TRUE
             )
           }
-          
+
         })
-        
-        
+
+
         ###################################################################
         ## Astrugluas
         ####################################################################
-        
+
         # die results
         die <- reactive({
           die <- c(rep(1, 1), rep(3, 4), rep(4, 4), rep(6, 1))
         })
-        
+
         # Population of Astragalus
         output$pop <- renderPlot({
           a = min(die())
@@ -1073,11 +1067,11 @@ shinyServer(function(session, input, output) {
           axis(side = 1,
                at = foo$mids,
                labels = seq(a, b))
-          
+
         })
-        
-        
-        
+
+
+
         # Matrix for first 50 reps of data
         firstfifData6 <- reactive(matrix(
           sample(die(), 50 * input$assize,
@@ -1085,8 +1079,8 @@ shinyServer(function(session, input, output) {
           nrow = 50,
           ncol = input$assize
         ))
-        
-        
+
+
         # Write the mean of first 50 data into vector
         firstfif6 <- reactive({
           matrix <- firstfifData6()
@@ -1096,11 +1090,11 @@ shinyServer(function(session, input, output) {
               matrix.means[i, j] = mean(matrix[i, 1:j])
             }
           }
-          
+
           fifmeans = as.vector(matrix.means)
           return(fifmeans)
         })
-        
+
         # Merge the first 50 means with the rest of data
         data6 <- reactive({
           datameans = firstfif6()
@@ -1110,9 +1104,9 @@ shinyServer(function(session, input, output) {
           }
           return(datameans)
         })
-        
-        
-        
+
+
+
         # One Sample Histogram
         output$line2 <- renderPlot({
           matrix <- firstfifData6()
@@ -1143,7 +1137,7 @@ shinyServer(function(session, input, output) {
               xlab = "individual value"
             )
           }
-          
+
         })
         # All Sample Histogram
         output$line1 <- renderPlot({
@@ -1193,15 +1187,15 @@ shinyServer(function(session, input, output) {
               add = TRUE
             )
           }
-          
+
         })
-        
+
         ###################################################################
         ## IPOD SHUFFLE
         ####################################################################
-        
+
         #Population and Sum for IPOD
-        
+
         # set up songs from four types
         songs <- reactive({
           songs <- c(rep(input$s1),
@@ -1209,36 +1203,36 @@ shinyServer(function(session, input, output) {
                      rep(input$s3),
                      rep(input$s4))
         })
-        
+
         # average songs in the IPOD
         avg_songs <- reactive({
           mean(songs())
         })
-        
-        
+
+
         # Jazz percent
         output$Jazz_percent <- renderPrint({
           cat(round(input$s1 / sum(songs()), digits = 2))
         })
-        
+
         # Rock percent
         output$Rock_percent <- renderPrint({
           cat(round(input$s2 / sum(songs()), digits = 2))
         })
-        
+
         # Country percent
         output$Country_percent <- renderPrint({
           cat(round(input$s3 / sum(songs()), digits = 2))
         })
-        
+
         # Hip-pop percent
         output$Hiphop_percent <- renderPrint({
           cat(round(input$s4 / sum(songs()), digits = 2))
         })
-        
+
         ############################################
         # Plot with bar plot with 4 categories songs
-        
+
         # Jazz population plot
         output$Plot1 <- renderPlot({
           pjazz <- input$s1 / sum(songs())
@@ -1262,7 +1256,7 @@ shinyServer(function(session, input, output) {
           #       main = "Population Graph",cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
           #       col="red", lwd=5)
         })
-        
+
         # Rock population plot
         output$Plot2 <- renderPlot({
           prock <- input$s2 / sum(songs())
@@ -1286,7 +1280,7 @@ shinyServer(function(session, input, output) {
           #       main = "Population Graph",cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
           #       col="red", lwd=5)
         })
-        
+
         # Country population plot
         output$Plot3 <- renderPlot({
           pcountry <- input$s3 / sum(songs())
@@ -1311,7 +1305,7 @@ shinyServer(function(session, input, output) {
           #       main = "Population Graph",cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
           #       col="red", lwd=5)
         })
-        
+
         #Hip-pop population plot
         output$Plot4 <- renderPlot({
           phiphop <- input$s4 / sum(songs())
@@ -1335,13 +1329,13 @@ shinyServer(function(session, input, output) {
           #       main = "Population Graph",cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
           #       col="red", lwd=5)
         })
-        
+
         ############################################
         # Average Plot with 4 categories songs
-        
-        
+
+
         # Matrix of Songs from 4 types
-        
+
         ### Jazz
         # Matrix for first 50 reps of data
         firstfifDataJazz <- reactive(matrix(
@@ -1353,8 +1347,8 @@ shinyServer(function(session, input, output) {
           nrow = 50,
           ncol = input$ipodsize
         ))
-        
-        
+
+
         # Write the mean of first fif data into vector
         firstfifJazz <- reactive({
           matrix <- firstfifDataJazz()
@@ -1365,11 +1359,11 @@ shinyServer(function(session, input, output) {
               matrix.means[i, j] = mean(matrix[i, 1:j])
             }
           }
-          
+
           fifmeans = as.vector(matrix.means)
           return(fifmeans)
         })
-        
+
         # Merge the first fif means with the rest of data
         Jazzdata <- reactive({
           datameans = firstfifJazz()
@@ -1382,7 +1376,7 @@ shinyServer(function(session, input, output) {
           }
           return(datameans)
         })
-        
+
         ### Rock
         # Matrix for first fif reps of data
         firstfifDataRock <- reactive(matrix(
@@ -1394,8 +1388,8 @@ shinyServer(function(session, input, output) {
           nrow = 50,
           ncol = input$ipodsize
         ))
-        
-        
+
+
         # Write the mean of first fif data into vector
         firstfifRock <- reactive({
           matrix <- firstfifDataRock()
@@ -1405,11 +1399,11 @@ shinyServer(function(session, input, output) {
               matrix.means[i, j] = mean(matrix[i, 1:j])
             }
           }
-          
+
           fifmeans = as.vector(matrix.means)
           return(fifmeans)
         })
-        
+
         # Merge the first fif means with the rest of data
         Rockdata <- reactive({
           datameans = firstfifRock()
@@ -1422,8 +1416,8 @@ shinyServer(function(session, input, output) {
           }
           return(datameans)
         })
-        
-        
+
+
         ### Country
         # Matrix for first fif reps of data
         firstfifDataCountry <- reactive(matrix(
@@ -1435,8 +1429,8 @@ shinyServer(function(session, input, output) {
           nrow = 50,
           ncol = input$ipodsize
         ))
-        
-        
+
+
         # Write the mean of first fif data into vector
         firstfifCountry <- reactive({
           matrix <- firstfifDataCountry()
@@ -1446,11 +1440,11 @@ shinyServer(function(session, input, output) {
               matrix.means[i, j] = mean(matrix[i, 1:j])
             }
           }
-          
+
           fifmeans = as.vector(matrix.means)
           return(fifmeans)
         })
-        
+
         # Merge the first fif means with the rest of data
         Countrydata <- reactive({
           datameans = firstfifCountry()
@@ -1463,7 +1457,7 @@ shinyServer(function(session, input, output) {
           }
           return(datameans)
         })
-        
+
         ### Hiphop
         # Matrix for first fif reps of data
         firstfifDataHiphop <- reactive(matrix(
@@ -1475,8 +1469,8 @@ shinyServer(function(session, input, output) {
           nrow = 50,
           ncol = input$ipodsize
         ))
-        
-        
+
+
         # Write the mean of first fif data into vector
         firstfifHiphop <- reactive({
           matrix <- firstfifDataHiphop()
@@ -1486,11 +1480,11 @@ shinyServer(function(session, input, output) {
               matrix.means[i, j] = mean(matrix[i, 1:j])
             }
           }
-          
+
           fifmeans = as.vector(matrix.means)
           return(fifmeans)
         })
-        
+
         # Merge the first fif means with the rest of data
         Hiphopdata <- reactive({
           datameans = firstfifHiphop()
@@ -1503,8 +1497,8 @@ shinyServer(function(session, input, output) {
           }
           return(datameans)
         })
-        
-        
+
+
         # JAZZ
         # One Sample Barplot
         output$Plot01 <- renderPlot({
@@ -1542,10 +1536,10 @@ shinyServer(function(session, input, output) {
               names.arg = c("Jazz", "Other music")
             )
           }
-          
+
         })
-        
-        
+
+
         # Rock
         # One Sample Barplot
         output$Plot02 <- renderPlot({
@@ -1583,9 +1577,9 @@ shinyServer(function(session, input, output) {
               names.arg = c("Rock", "Other music")
             )
           }
-          
+
         })
-        
+
         # Country Average Plot
         output$Plot03 <- renderPlot({
           matrix <- firstfifDataCountry()
@@ -1622,10 +1616,10 @@ shinyServer(function(session, input, output) {
               names.arg = c("Country", "Other music")
             )
           }
-          
+
         })
-        
-        
+
+
         # Hip-hop Average Plot
         output$Plot04 <- renderPlot({
           matrix <-  firstfifDataHiphop()
@@ -1662,14 +1656,14 @@ shinyServer(function(session, input, output) {
               names.arg = c("Hip-hop", "Other music")
             )
           }
-          
+
         })
-        
-        
-        
+
+
+
         ############################################
         # Sum Plot with 4 categories songs
-        
+
         # JAZZ
         output$Plot10 <- renderPlot({
           if (input$s1 == 0) {
@@ -1714,7 +1708,7 @@ shinyServer(function(session, input, output) {
                 add = TRUE
               )
             }
-            
+
           }
           else{
             # vector <-Jazzdata()
@@ -1750,13 +1744,13 @@ shinyServer(function(session, input, output) {
             #      freq = FALSE, cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
             #      xlab = "sample average",ylim = c(0, max(tmp, highestCount)))
             # curve(dnorm(x, mean = mean(vector), sd = sd(vector)), col="blue", lwd=3, add=TRUE)
-            
-            
+
+
           }
         })
-        
-        
-        
+
+
+
         # Rock SUM PLOT
         output$Plot20 <- renderPlot({
           if (input$s2 == 0) {
@@ -1801,7 +1795,7 @@ shinyServer(function(session, input, output) {
                 add = TRUE
               )
             }
-            
+
           }
           # else{
           #   vector <-Rockdata()
@@ -1858,7 +1852,7 @@ shinyServer(function(session, input, output) {
             # curve(dnorm(x, mean = mean(vector), sd = sd(vector)), col="blue", lwd=3, add=TRUE)
           }
         })
-        
+
         # Country SUM PLOT
         output$Plot30 <- renderPlot({
           if (input$s3 == 0) {
@@ -1903,7 +1897,7 @@ shinyServer(function(session, input, output) {
                 add = TRUE
               )
             }
-            
+
           }
           # else{
           #   vector <- Countrydata()
@@ -1959,7 +1953,7 @@ shinyServer(function(session, input, output) {
             # curve(dnorm(x, mean = mean(vector), sd = sd(vector)), col="blue", lwd=3, add=TRUE)
           }
         })
-        
+
         # Hip_Hop SUM PLOT
         output$Plot40 <- renderPlot({
           if (input$s4 == 0) {
@@ -2028,7 +2022,7 @@ shinyServer(function(session, input, output) {
             # tmphist <- hist(vector, plot = FALSE)
             # highestCount <- max(tmphist$density)
             # tmp <- dnorm(vector, mean = mean(vector), sd = sd(vector))
-            
+
             n <- input$ipodsize
             # x <- seq(0, n, by = 1)
             vector <-
@@ -2058,10 +2052,9 @@ shinyServer(function(session, input, output) {
             #      freq = FALSE, cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
             #      xlab = "sample average",ylim = c(0, max(tmp, highestCount)))
             # curve(dnorm(x, mean = mean(vector), sd = sd(vector)), col="blue", lwd=3, add=TRUE)
-            
+
           }
         })
-        
+
   })
 })
-    
