@@ -5,160 +5,144 @@ library(shinythemes)
 library(shinyBS)
 library(shinyWidgets)
 
+
+
 # Define UI for application that draws a histogram
 shinyUI(dashboardPage(
   skin = "blue",
   dashboardHeader(
     title = 'Central Limit Theorem',
-    tags$li(class = "dropdown", tags$a(href =
-                                         'http://stat.psu.edu/', icon("home"))),
-    tags$li(class = "dropdown", actionLink("info", icon("info", class = "myClass")))
+    titleWidth=250,
+    tags$li(class = "dropdown", actionLink("info", icon("info"))),
+    tags$li(class = "dropdown",
+            tags$a(href='https://github.com/EducationShinyAppTeam/BOAST',
+                   icon("github"))),
+    tags$li(class = "dropdown",
+            tags$a(href='https://shinyapps.science.psu.edu/',
+                   icon("home")))
   ),
   dashboardSidebar(
+    width=250,
     sidebarMenu(
       id = "tabs",
       menuItem("Overview", tabName = "Overview", icon = icon("dashboard")),
       menuItem("Prerequisites", tabName = "Prerequisites", icon = icon("book")),
-      menuItem(
-        "Central Limit Theorem",
-        icon = icon("wpexplorer"),
-        tabName = "largeNumber"
-      ),
-      menuItem("References", tabName = "References", icon = icon("leanpub"))
-      
-      
+      menuItem("Explore",icon = icon("wpexplorer"),tabName = "largeNumber"),
+      menuItem("References", tabName = "References", icon = icon("leanpub")
+      )),
+    tags$div(
+      class = "sidebar-logo",
+      boastUtils::psu_eberly_logo("reversed")
     )
   ),
   dashboardBody(
     tags$head(
-      tags$link(rel = "stylesheet", type = "text/css", href = "Feature.css"),
-      tags$style(HTML(
-        '#go{color:white;background-color: #337ab7}'
-      ))
+      tags$link(rel = "stylesheet", type = "text/css", href = "https://educationshinyappteam.github.io/Style_Guide/theme/boast.css")
     ),
     tabItems(
       tabItem(
         tabName = "Overview",
         # tags$a(href='http://stat.psu.edu/',tags$img(src='PS-HOR-RGB-2C.png', align = "left", width = 180)),
-        br(),
-        br(),
-        br(),
         fluidPage(
-          withMathJax(),
-          h3(tags$b("About:")),
-          h4(
+    
+          h1("Central Limit Theorem"),
+          p(
             "This app is designed to examine the Central Limit Theorem under different population distributions and sample sizes."
+            
           ),
-          h3(tags$b("Instructions:")),
-          h4(
+          p("The Central Limit Theorem tells us when the sample size increases, the all sample histogram will become normal distribution."),
+          br(),
+          h2("Instructions"),
+          tags$ol(
             tags$li(
               "Pick a population from one of the continuous types (left-skewed; right-skewed; symmetric; or bimodal) or one of the
                                  discrete examples (rolls of an astragalus; random songs from an iPod shuffle; or accident occurrence)."
-            )
-          ),
-          h4(
+            ),
+        
+        
             tags$li(
               "Use the sliders to adjust the parameters of the population model you chosen."
-            )
-          ),
-          h4(
+            ),
+        
+        
             tags$li(
               "Use the sliders to decide the sample size (n) you want for each sample and how many reps you will repeat the process
                                  of taking samples from the population (calculating \\(\\bar{x}\\) for each)."
-            )
-          ),
-          h4(
-            tags$li("Use the button to see one of the individual samples chossen.")
-          ),
-          h4(
+            ),
+    
+        
+            tags$li("Use the button to see one of the individual samples chossen."),
+       
+       
             tags$li(
               "Observe the histograms of one sample and for \\(\\bar{x}\\) from all samples."
-            )
+            ),
           ),
-          br(),
           div(style = "text-align: center",
-              bsButton("go", "Explore", icon("bolt"), class =
+              bsButton("go", "Go!", icon("bolt"), class =
                          "circle grow")),
-          h3(tags$b("Acknowledgements:")),
-          h4(
-            "This app was developed and coded by Yingjie (Chelsea) Wang with the help of Yubaihe Zhou. Selection of population densities was originally coded by Caihui Xiao."
+          br(),
+          h2("Acknowledgements:"),
+          p(
+            "This app was developed and coded by Yingjie (Chelsea) Wang with the help of Yubaihe Zhou. Selection of population densities was originally coded by Caihui Xiao.
+            This application was modified by Zhiruo Wang in 2019 and by Jiawei Wu in 2020."
           ),
-          h4("This application was modified by Zhiruo Wang."),
-          h4("This application was modified by Jiawei Wu.")
+    
+          div(class = "updated", "Last Update: 06/22/2020 by WJW.")
+ 
         )
       ),
       
       #### Set up the Prerequisites Page
       tabItem(
         tabName = "Prerequisites",
-        withMathJax(),
         h2("Prerequisites"),
-        h4(
+  
           p(
             "In order to get the most out of this app, please review the
             following information that will be used in the app."
-          )
-        ),
+          ),
+  
         
         #https://online.stat.psu.edu/stat100/lesson/3/3.2
         #"https://online.stat.psu.edu/stat200/lesson/2/2.2/2.2.3"
-        tags$ul(h4(
-          tags$li(
-            "This app uses four distributions: right (positive) skewed, left (negative) skewed, symmetric, and bimodal.
+        
+        tags$ul(
+          tags$li("This app uses four distributions: right (positive) skewed, left (negative) skewed, symmetric, and bimodal.
           While in depth understanding of these distributions is not required, you may wish to review this ",
-            tags$a(href = "https://online.stat.psu.edu/stat100/lesson/3/3.2#graphshapes", "Stat 100 Table of Graph Shapes"),
-            ".",
-          )
+                  tags$a(href="https://online.stat.psu.edu/stat100/lesson/3/3.2#graphshapes", "Stat 100 Table of Graph Shapes"),
+                  ".",),
+          tags$li("One of the distributions is based upon rolls of an astragalus. The astragalus (ankle or heel bone) of animals were used in ancient times as a forerunner of modern dice. 
+                  When a sheep astragalus is thrown into the air it can land on one of four sides, which were associated with the numbers 
+                  1, 3, 4, and 6. Two sides (the 3 and the 4) are wider and each come up about 40% of the time, while the narrower sides 
+                  (the 1 and the 6) each come up about 10% of the time. An image of an astralagus is shown below.")
         ),
-        h4(
-          tags$li(
-            "One of the distributions is based upon rolls of an astragalus. The astragalus (ankle or heel bone) of animals were used in ancient times as a forerunner of modern dice.
-                  When a sheep astragalus is thrown into the air it can land on one of four sides, which were associated with the numbers
-                  1, 3, 4, and 6. Two sides (the 3 and the 4) are wider and each come up about 40% of the time, while the narrower sides
-                  (the 1 and the 6) each come up about 10% of the time."
-          )
-        )),
-        
-        HTML(
-          '<center><figure><img src="astragalus.jpg" alt="Picture of an astragalus" width="600"><figcaption>image by Yaan, 2007</figcaption></figure></center>'
-        ),
-        tags$ul(h4(
-          tags$li(
-            "The repetitions refers to the number of trials we try. More repetitions, we can get more centralized (normal) distribution."
-          )
-        ),
-        
-        h4(
-          tags$li("The sample size refers the number of samples in one trial.")
-        )),
+        HTML('<center><figure><img src="astragalus.jpg" alt="Picture of an astragalus" width="600"><figcaption>image by Yaan, 2007</figcaption></figure></center>'),
       ),
       
       
       
       
+      
+      # Explore Law of Large Numbers Tab
       tabItem(
         tabName = "largeNumber",
+        
         tags$head(tags$style(
-          HTML("
-                                              input[type=\"number\"] {
-                                              width: 60px;
-                                              }
-                                              ")
-        ),
-        tags$style(
-          HTML('.popover-title{
-                                    color: #FFFFFF;
-                                    background-color: #337ab7 }')
+          HTML("input[type=\"number\"] {width: 60px;}")
         )),
-        h4(wellPanel(# div(style="display: inline-block;vertical-align:top;",
-          #     tags$a(href='https://shinyapps.science.psu.edu/',tags$img(src='homebut.PNG', width = 19))
-          # ),
-          # div(style="display: inline-block;vertical-align:top;",
-          #     circleButton("info",icon = icon("info"), status = "myClass",size = "xs")
-          # ),
+        h2("Central Limit Theorem"),
+        p("In this section, you will have the chance to explore the Central Limit Theorem. 
+          To do so, first choose a population to sample from, a number of samples to take, 
+          and repetitions. Then observe the graphs of Histogram of values in a single sample
+          and all sample histogram to see the CLT."),
+
+          sidebarLayout(
+           sidebarPanel(
+             width=6,
           fluidRow(
             column(
-              3,
+              6,
               selectInput(
                 "popDist",
                 "Population Type",
@@ -250,9 +234,9 @@ shinyUI(dashboardPage(
                 sliderInput(
                   "prop",
                   "% under right mode:",
-                  min = 0,
-                  max = 1,
-                  value = 0.2,
+                  min = 10,
+                  max = 90,
+                  value = 20,
                   ticks = FALSE,
                   post = "%"
                 ),
@@ -369,7 +353,7 @@ shinyUI(dashboardPage(
               
             ),
             column(
-              3,
+              6,
               #left skewed
               conditionalPanel(
                 condition = "input.popDist == 'leftskewed'",
@@ -506,9 +490,11 @@ shinyUI(dashboardPage(
                 actionButton("new7", "show one of the samples", icon("retweet"), style =
                                "color: #fff; background-color: #337ab7; border-color: #2e6da4")
               )
-            ),
-            column(
-              6,
+            )
+          )
+           ),
+            mainPanel(
+              width=6,
               conditionalPanel(condition = "input.popDist == 'leftskewed'",
                                plotOutput('plotleft1')),
               
@@ -539,7 +525,7 @@ shinyUI(dashboardPage(
                 
               )
             )
-          ))),
+          ),
         br(),
         fluidRow(
           column(
@@ -663,7 +649,7 @@ shinyUI(dashboardPage(
                   trigger = "hover",
                   placement = "top"
                 )
-              ),
+              )
               
             )
             
@@ -755,4 +741,5 @@ shinyUI(dashboardPage(
       )
     )
   )
-))
+)
+)

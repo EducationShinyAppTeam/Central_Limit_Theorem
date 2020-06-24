@@ -242,16 +242,16 @@ shinyServer(function(session, input, output) {
           main = "All Samples Histogram",
           col = "lightblue",
           breaks = input$leftreps,
-          freq = FALSE,
+          freq = TRUE,
           cex.lab = 1.5,
           cex.axis = 1.5,
           cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "sample average",
-          ylim = c(0, max(tmp, highestCount) + 0.25)
+  
         )
         curve(
-          dnorm(x, mean = mean(vector), sd = sd(vector)),
+          dnorm(x, mean = mean(vector), sd = sd(vector))*30,
           col = "blue",
           lwd = 3,
           add = TRUE
@@ -263,16 +263,16 @@ shinyServer(function(session, input, output) {
           main = "All Samples Histogram",
           col = "lightblue",
           breaks = 100,
-          freq = FALSE,
+          freq = TRUE,
           cex.lab = 1.5,
           cex.axis = 1.5,
           cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "sample average",
-          ylim = c(0, max(tmp, highestCount) + 0.25)
+      
         )
         curve(
-          dnorm(x, mean = mean(vector), sd = sd(vector)),
+          dnorm(x, mean = mean(vector), sd = sd(vector))*30,
           col = "blue",
           lwd = 3,
           add = TRUE
@@ -392,16 +392,16 @@ shinyServer(function(session, input, output) {
           main = "All Samples Histogram",
           col = "lightblue",
           breaks = input$rightreps,
-          freq = FALSE,
+          freq = TRUE,
           cex.lab = 1.5,
           cex.axis = 1.5,
           cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "sample average",
-          ylim = c(0, max(tmp, highestCount) + 0.25)
+
         )
         curve(
-          dnorm(x, mean = mean(vector), sd = sd(vector)),
+          dnorm(x, mean = mean(vector), sd = sd(vector))*30,
           col = "blue",
           lwd = 3,
           add = TRUE
@@ -413,16 +413,16 @@ shinyServer(function(session, input, output) {
           main = "All Samples Histogram",
           col = "lightblue",
           breaks = 80,
-          freq = FALSE,
+          freq = TRUE,
           cex.lab = 1.5,
           cex.axis = 1.5,
           cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "sample average",
-          ylim = c(0, max(tmp, highestCount) + 0.25)
+
         )
         curve(
-          dnorm(x, mean = mean(vector), sd = sd(vector)),
+          dnorm(x, mean = mean(vector), sd = sd(vector))*30,
           col = "blue",
           lwd = 3,
           add = TRUE
@@ -579,13 +579,13 @@ shinyServer(function(session, input, output) {
           main = "All Samples Histogram",
           col = "lightblue",
           breaks = input$symreps,
-          freq = FALSE,
+          freq = TRUE,
           cex.lab = 1.5,
           cex.axis = 1.5,
           cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "sample average",
-          ylim = c(0, max(tmp, highestCount) + 1.7)
+       
         )
         curve(
           dnorm(x, mean = mean(vector), sd = sd(vector)),
@@ -600,13 +600,13 @@ shinyServer(function(session, input, output) {
           main = "All Samples Histogram",
           col = "lightblue",
           breaks = 80,
-          freq = FALSE,
+          freq = TRUE,
           cex.lab = 1.5,
           cex.axis = 1.5,
           cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "sample average",
-          ylim = c(0, max(tmp, highestCount) + 1.7)
+ 
         )
         curve(
           dnorm(x, mean = mean(vector), sd = sd(vector)),
@@ -640,7 +640,7 @@ shinyServer(function(session, input, output) {
       rightdraw <- dgamma(y, 1.2, beta = 1)
       data <-
         data.frame(x = seq(0, 5, t),
-                   y = input$prop * leftdraw + (1 - input$prop) * rightdraw)
+                   y = 0.01*input$prop * leftdraw + (1 - 0.01*input$prop) * rightdraw)
       
       # Make the density plot
       makeDensityPlot(data = data, xlims = c(0, 5))
@@ -657,15 +657,15 @@ shinyServer(function(session, input, output) {
     firstfifData4 <- reactive({
       rand <- sample(
         x = c(0, 1),
-        size = input$bisize * 50,
+        size = input$bisize*50,
         replace = TRUE,
-        prob = c(input$prop, 1 - input$prop)
+        prob = c(input$prop*0.01, 1 - input$prop*0.01)
       )
       
       rights <-
         sum(rand) # Number of elements sampled from the right distribution (represented by 1)
       lefts <-
-        input$bisize * 10 - rights # Number of elements sampled from left distribution (represented by 0)
+        input$bisize*50 - rights # Number of elements sampled from left distribution (represented by 0)
       leftGammas <-
         rgamma(lefts, 1.25, beta = 1) # Samples left distribution
       rightGammas <-
@@ -684,7 +684,7 @@ shinyServer(function(session, input, output) {
           rightIndex <- rightIndex + 1
         }
       }
-      matrix(rand, nrow = 50
+      matrix(rand, nrow = 50 , ncol = input$bisize
              # mix.synthetic.facing.gamma(N = 10*input$bisize, mix.prob = 1-input$prop,
              #                                        lower = 0, upper = 6, shape1=input$leftskew, scale1=1,
              #                                        shape2=input$rightskew, scale2=1),
@@ -694,48 +694,8 @@ shinyServer(function(session, input, output) {
       
       
       
+
       
-      # Matrix for first 50 reps of data
-      firstfifData4 <- reactive({
-        rand <- sample(
-          x = c(0, 1),
-          size = input$bisize * 50,
-          replace = TRUE,
-          prob = c(input$prop, 1 - input$prop)
-        )
-        
-        rights <-
-          sum(rand) # Number of elements sampled from the right distribution (represented by 1)
-        lefts <-
-          input$bisize * 50 - rights # Number of elements sampled from left distribution (represented by 0)
-        leftGammas <-
-          rgamma(lefts, 1.25, beta = 1) # Samples left distribution
-        rightGammas <-
-          5 - rgamma(rights, 1.25, beta = 1) # Samples right distribution
-        
-        # Loop to assign values from gamma distributions to rand
-        rightIndex <- 1
-        leftIndex <- 1
-        for (x in 1:length(rand)) {
-          if (rand[x] == 0) {
-            rand[x] <- leftGammas[leftIndex]
-            leftIndex <- leftIndex + 1
-          }
-          else{
-            rand[x] <- rightGammas[rightIndex]
-            rightIndex <- rightIndex + 1
-          }
-        }
-        matrix(rand, nrow = 50
-               # mix.synthetic.facing.gamma(N = 10*input$bisize, mix.prob = 1-input$prop,
-               #                                        lower = 0, upper = 6, shape1=input$leftskew, scale1=1,
-               #                                        shape2=input$rightskew, scale2=1),
-               #             nrow = 10, ncol = input$bisize
-      )})
-        
-        
-        
-        
         # Write the mean of first 50 data into vector
         firstfif4 <- reactive({
           matrix <- firstfifData4()
@@ -754,13 +714,14 @@ shinyServer(function(session, input, output) {
         # Merge the first 50 means with the rest of data
         data4 <- reactive({
           datameans = firstfif4()
-          for (i in 1:(input$bireps - 50)) {
+       
+          for (i in 50:input$bireps) {
             # Random vector of 0s and 1s to determine which distribution each element samples from
             rand <- sample(
               x = c(0, 1),
               size = input$bisize,
               replace = TRUE,
-              prob = c(input$prop, 1 - input$prop)
+              prob = c(input$prop*0.01, 1 - input$prop*0.01)
             )
             
             rights <-
@@ -790,8 +751,11 @@ shinyServer(function(session, input, output) {
             #datameans = append(datameans, mean(mix.synthetic.facing.gamma(N = input$bisize, mix.prob = 1-input$prop,
             #                                                              lower = 0, upper = 6, shape1=input$leftskew, scale1=1,
             #                                                              shape2=input$rightskew, scale2=1)))
+          
           }
           return(datameans)
+          
+     
         })
         
         
@@ -839,13 +803,14 @@ shinyServer(function(session, input, output) {
               main = "All Samples Histogram",
               col = "lightblue",
               breaks = input$bireps,
-              freq = FALSE,
+              freq = TRUE,
               cex.lab = 1.5,
               cex.axis = 1.5,
               cex.main = 1.5,
               cex.sub = 1.5,
               xlab = "sample average",
-              ylim = c(0, max(tmp, highestCount) + 0.25)
+        
+        
             )
             curve(
               dnorm(x, mean = mean(vector), sd = sd(vector)),
@@ -860,13 +825,14 @@ shinyServer(function(session, input, output) {
               main = "All Samples Histogram",
               col = "lightblue",
               breaks = 80,
-              freq = FALSE,
+              freq = TRUE,
               cex.lab = 1.5,
               cex.axis = 1.5,
               cex.main = 1.5,
               cex.sub = 1.5,
               xlab = "sample average",
-              ylim = c(0, max(tmp, highestCount) + 0.25)
+       
+   
             )
             curve(
               dnorm(x, mean = mean(vector), sd = sd(vector)),
@@ -1003,13 +969,13 @@ shinyServer(function(session, input, output) {
               main = "All Samples Histogram",
               col = "lightblue",
               breaks = input$poreps,
-              freq = FALSE,
+              freq = TRUE,
               cex.lab = 1.5,
               cex.axis = 1.5,
               cex.main = 1.5,
               cex.sub = 1.5,
               xlab = "sample average",
-              ylim = c(0, max(tmp, highestCount) + 3)
+           
             )
             curve(
               dnorm(x, mean = mean(vector), sd = sd(vector)),
@@ -1024,13 +990,13 @@ shinyServer(function(session, input, output) {
               main = "All Samples Histogram",
               col = "lightblue",
               breaks = 80,
-              freq = FALSE,
+              freq = TRUE,
               cex.lab = 1.5,
               cex.axis = 1.5,
               cex.main = 1.5,
               cex.sub = 1.5,
               xlab = "sample average",
-              ylim = c(0, max(tmp, highestCount) + 3)
+            
             )
             curve(
               dnorm(x, mean = mean(vector), sd = sd(vector)),
@@ -1157,13 +1123,13 @@ shinyServer(function(session, input, output) {
               main = "All Samples Histogram",
               col = "lightblue",
               breaks = input$asreps,
-              freq = FALSE,
+              freq = TRUE,
               cex.lab = 1.5,
               cex.axis = 1.5,
               cex.main = 1.5,
               cex.sub = 1.5,
               xlab = "sample average",
-              ylim = c(0, max(tmp, highestCount) + 2)
+            
             )
             curve(
               dnorm(x,  mean = mean(vector), sd = sd(vector)),
@@ -1178,13 +1144,13 @@ shinyServer(function(session, input, output) {
               main = "All Samples Histogram",
               col = "lightblue",
               breaks = 80,
-              freq = FALSE,
+              freq = TRUE,
               cex.lab = 1.5,
               cex.axis = 1.5,
               cex.main = 1.5,
               cex.sub = 1.5,
               xlab = "sample average",
-              ylim = c(0, max(tmp, highestCount) + 2)
+          
             )
             curve(
               dnorm(x,  mean = mean(vector), sd = sd(vector)),
@@ -1680,7 +1646,7 @@ shinyServer(function(session, input, output) {
                 main = "All Samples Histogram",
                 col = "lightblue",
                 breaks = input$ipodreps,
-                freq = FALSE,
+                freq = TRUE,
                 cex.lab = 1.5,
                 cex.axis = 1.5,
                 cex.main = 1.5,
@@ -1700,7 +1666,7 @@ shinyServer(function(session, input, output) {
                 main = "All Samples Histogram",
                 col = "lightblue",
                 breaks = 80,
-                freq = FALSE,
+                freq = TRUE,
                 cex.lab = 1.5,
                 cex.axis = 1.5,
                 cex.main = 1.5,
@@ -1767,7 +1733,7 @@ shinyServer(function(session, input, output) {
                 main = "All Samples Histogram",
                 col = "lightblue",
                 breaks = input$ipodreps,
-                freq = FALSE,
+                freq = TRUE,
                 cex.lab = 1.5,
                 cex.axis = 1.5,
                 cex.main = 1.5,
@@ -1787,7 +1753,7 @@ shinyServer(function(session, input, output) {
                 main = "All Samples Histogram",
                 col = "lightblue",
                 breaks = 80,
-                freq = FALSE,
+                freq =TRUE,
                 cex.lab = 1.5,
                 cex.axis = 1.5,
                 cex.main = 1.5,
@@ -1869,7 +1835,7 @@ shinyServer(function(session, input, output) {
                 main = "All Samples Histogram",
                 col = "lightblue",
                 breaks = input$ipodreps,
-                freq = FALSE,
+                freq = TRUE,
                 cex.lab = 1.5,
                 cex.axis = 1.5,
                 cex.main = 1.5,
@@ -1889,7 +1855,7 @@ shinyServer(function(session, input, output) {
                 main = "All Samples Histogram",
                 col = "lightblue",
                 breaks = 80,
-                freq = FALSE,
+                freq = TRUE,
                 cex.lab = 1.5,
                 cex.axis = 1.5,
                 cex.main = 1.5,
@@ -1970,7 +1936,7 @@ shinyServer(function(session, input, output) {
                 main = "All Samples Histogram",
                 col = "lightblue",
                 breaks = input$ipodreps,
-                freq = FALSE,
+                freq = TRUE,
                 cex.lab = 1.5,
                 cex.axis = 1.5,
                 cex.main = 1.5,
@@ -1990,7 +1956,7 @@ shinyServer(function(session, input, output) {
                 main = "All Samples Histogram",
                 col = "lightblue",
                 breaks = 80,
-                freq = FALSE,
+                freq = TRUE,
                 cex.lab = 1.5,
                 cex.axis = 1.5,
                 cex.main = 1.5,
