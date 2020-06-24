@@ -1,9 +1,6 @@
 library(shiny)
 library(shinydashboard)
-library(plotrix)
-library(shinythemes)
 library(shinyBS)
-library(shinyWidgets)
 
 
 
@@ -27,12 +24,23 @@ shinyUI(dashboardPage(
       id = "tabs",
       menuItem("Overview", tabName = "Overview", icon = icon("dashboard")),
       menuItem("Prerequisites", tabName = "Prerequisites", icon = icon("book")),
+<<<<<<< HEAD
       menuItem("Explore",icon = icon("wpexplorer"),tabName = "largeNumber"),
       menuItem("References", tabName = "References", icon = icon("leanpub")
       )),
     tags$div(
       class = "sidebar-logo",
       boastUtils::psu_eberly_logo("reversed")
+=======
+      menuItem(
+        "Central Limit Theorem",
+        icon = icon("wpexplorer"),
+        tabName = "largeNumber"
+      ),
+      menuItem("References", tabName = "References", icon = icon("leanpub"))
+
+
+>>>>>>> 9f07721cbd564782ff17b085bd1c7d54c4b72fa7
     )
   ),
   dashboardBody(
@@ -92,7 +100,7 @@ shinyUI(dashboardPage(
  
         )
       ),
-      
+
       #### Set up the Prerequisites Page
       tabItem(
         tabName = "Prerequisites",
@@ -101,6 +109,7 @@ shinyUI(dashboardPage(
           p(
             "In order to get the most out of this app, please review the
             following information that will be used in the app."
+<<<<<<< HEAD
           ),
   
         
@@ -125,6 +134,47 @@ shinyUI(dashboardPage(
       
       
       # Explore Law of Large Numbers Tab
+=======
+          )
+        ),
+
+        #https://online.stat.psu.edu/stat100/lesson/3/3.2
+        #"https://online.stat.psu.edu/stat200/lesson/2/2.2/2.2.3"
+        tags$ul(h4(
+          tags$li(
+            "This app uses four distributions: right (positive) skewed, left (negative) skewed, symmetric, and bimodal.
+          While in depth understanding of these distributions is not required, you may wish to review this ",
+            tags$a(href = "https://online.stat.psu.edu/stat100/lesson/3/3.2#graphshapes", "Stat 100 Table of Graph Shapes"),
+            ".",
+          )
+        ),
+        h4(
+          tags$li(
+            "One of the distributions is based upon rolls of an astragalus. The astragalus (ankle or heel bone) of animals were used in ancient times as a forerunner of modern dice.
+                  When a sheep astragalus is thrown into the air it can land on one of four sides, which were associated with the numbers
+                  1, 3, 4, and 6. Two sides (the 3 and the 4) are wider and each come up about 40% of the time, while the narrower sides
+                  (the 1 and the 6) each come up about 10% of the time."
+          )
+        )),
+
+        HTML(
+          '<center><figure><img src="astragalus.jpg" alt="Picture of an astragalus" width="600"><figcaption>image by Yaan, 2007</figcaption></figure></center>'
+        ),
+        tags$ul(h4(
+          tags$li(
+            "The repetitions refers to the number of trials we try. More repetitions, we can get more centralized (normal) distribution."
+          )
+        ),
+
+        h4(
+          tags$li("The sample size refers the number of samples in one trial.")
+        )),
+      ),
+
+
+
+
+>>>>>>> 9f07721cbd564782ff17b085bd1c7d54c4b72fa7
       tabItem(
         tabName = "largeNumber",
         
@@ -158,7 +208,7 @@ shinyUI(dashboardPage(
                   "Accident Rate" = "poisson"
                 )
               ),
-              
+
               conditionalPanel(
                 condition = "input.popDist=='leftskewed'",
                 sliderInput(
@@ -230,7 +280,7 @@ shinyUI(dashboardPage(
               ),
               conditionalPanel(
                 condition = "input.popDist=='bimodal'",
-                
+
                 sliderInput(
                   "prop",
                   "% under right mode:",
@@ -240,20 +290,20 @@ shinyUI(dashboardPage(
                   ticks = FALSE,
                   post = "%"
                 ),
-                
-                
+
+
                 #fluidRow(
                 #column(width=8,"min"),
                 #column(width=9, ""),
                 #column(width=2,"max")),
-                
-                
+
+
                 actionButton("new4", "show one of the samples", icon("retweet"), style =
                                "color: #fff; background-color: #337ab7; border-color: #2e6da4")
               ),
               conditionalPanel(
                 condition = "input.popDist=='poisson'",
-                
+
                 sliderInput(
                   "poissonmean",
                   "Mean:",
@@ -266,20 +316,20 @@ shinyUI(dashboardPage(
                   condition = "input.poissonmean==0",
                   "Note: When the mean is set to 0, the number of accidents is always 0, so the variance is 0."
                 ),
-                
+
                 actionButton("new5", "show one of the samples", icon("retweet"), style =
                                "color: #fff; background-color: #337ab7; border-color: #2e6da4")
               ),
-              
+
               conditionalPanel(
                 condition = "input.popDist=='astragalus'",
-                
+
                 #sliderInput("poissonmean","Mean:", min = 0.1, max = 10, value = 1, step= 0.1),
-                
+
                 actionButton("new6", "show one of the samples", icon("retweet"), style =
                                "color: #fff; background-color: #337ab7; border-color: #2e6da4")
               ),
-              
+
               #iPod shuffle
               conditionalPanel(
                 condition = "input.popDist == 'ipodshuffle'",
@@ -295,11 +345,11 @@ shinyUI(dashboardPage(
                          "Hip-hop"),
                     selected = "Jazz"
                   ),
-                  
+
                   column(
                     4,
                     offset = 0,
-                    
+
                     numericInput(
                       "s1",
                       "Jazz",
@@ -350,7 +400,7 @@ shinyUI(dashboardPage(
                   verbatimTextOutput("Hiphop_percent")
                 )
               )
-              
+
             ),
             column(
               6,
@@ -371,7 +421,7 @@ shinyUI(dashboardPage(
                   max = 5000,
                   value = 1000
                 )
-                
+
               ),
               conditionalPanel(
                 condition = "input.popDist == 'rightskewed'",
@@ -382,7 +432,7 @@ shinyUI(dashboardPage(
                   max = 50,
                   value = 10
                 ),
-                
+
                 sliderInput(
                   "rightreps",
                   "# of reps",
@@ -391,10 +441,10 @@ shinyUI(dashboardPage(
                   value = 1000
                 )
               ),
-              
+
               conditionalPanel(
                 condition = "input.popDist == 'symmetric'",
-                
+
                 sliderInput(
                   "symsize",
                   "sample size (n)",
@@ -402,7 +452,7 @@ shinyUI(dashboardPage(
                   max = 50,
                   value = 10
                 ),
-                
+
                 sliderInput(
                   "symreps",
                   "# of reps",
@@ -410,7 +460,7 @@ shinyUI(dashboardPage(
                   max = 5000,
                   value = 1000
                 )
-                
+
               ),
               conditionalPanel(
                 condition = "input.popDist == 'astragalus'",
@@ -421,7 +471,7 @@ shinyUI(dashboardPage(
                   max = 50,
                   value = 10
                 ),
-                
+
                 sliderInput(
                   "asreps",
                   "# of reps",
@@ -429,11 +479,11 @@ shinyUI(dashboardPage(
                   max = 5000,
                   value = 1000
                 )
-                
+
               ),
               conditionalPanel(
                 condition = "input.popDist == 'bimodal'",
-                
+
                 sliderInput(
                   "bisize",
                   "sample size (n)",
@@ -449,7 +499,7 @@ shinyUI(dashboardPage(
                   max = 5000,
                   value = 1000
                 )
-                
+
               ),
               conditionalPanel(
                 condition = "input.popDist == 'poisson'",
@@ -468,7 +518,7 @@ shinyUI(dashboardPage(
                   max = 5000,
                   value = 1000
                 )
-                
+
               ),
               conditionalPanel(
                 condition = "input.popDist == 'ipodshuffle'",
@@ -497,7 +547,7 @@ shinyUI(dashboardPage(
               width=6,
               conditionalPanel(condition = "input.popDist == 'leftskewed'",
                                plotOutput('plotleft1')),
-              
+
               conditionalPanel(condition = "input.popDist == 'rightskewed'",
                                plotOutput('plotright1')),
               conditionalPanel(condition = "input.popDist == 'symmetric'",
@@ -522,7 +572,7 @@ shinyUI(dashboardPage(
                 conditionalPanel(condition =
                                    "input.ptype == 'Hip-hop'",
                                  plotOutput('Plot4'))
-                
+
               )
             )
           ),
@@ -649,11 +699,16 @@ shinyUI(dashboardPage(
                   trigger = "hover",
                   placement = "top"
                 )
+<<<<<<< HEAD
               )
               
+=======
+              ),
+
+>>>>>>> 9f07721cbd564782ff17b085bd1c7d54c4b72fa7
             )
-            
-            
+
+
           )
         )
       ),
@@ -701,13 +756,13 @@ shinyUI(dashboardPage(
           " H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016."
         )
         ,
-        
+
         p(
           class = "hangingindent",
           "Hadley Wickham (2007). Reshaping Data with the reshape Package. Journal of Statistical Software, 21(12), 1-20. URL
   http://www.jstatsoft.org/v21/i12/."
         ),
-        
+
         p(
           class = "hangingindent",
           " Hadley Wickham and Dana Seidel (2020). scales: Scale Functions for Visualization. R package version 1.1.1.
@@ -737,7 +792,7 @@ shinyUI(dashboardPage(
           class = "hangingindent",
           "Yaan. (2007). Shagai. Wikimedia. Available at https://commons.wikimedia.org/wiki/File:Shagai.jpg."
         )
-        
+
       )
     )
   )
