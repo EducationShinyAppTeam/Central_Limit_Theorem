@@ -641,14 +641,12 @@ shinyServer(function(session, input, output) {
       # rightdraw <- dgamma(y, input$rightskew, beta=1)
       # Z <- input$prop*leftdraw + (1-input$prop)*rightdraw
       
-      t <- 5 / (input$bisize * input$bireps)
-      y <- seq(0, 5, t)
-      z <- seq(5, 0, -t)
-      leftdraw <- dgamma(z, 1.2, beta = 1)
-      rightdraw <- dgamma(y, 1.2, beta = 1)
-      data <-
-        data<-data.frame(x = seq(0, 5, t), 
-                         y = prop() * leftdraw + (1 - prop()) * rightdraw)
+      t <- 1 / (input$bisize * input$bireps)
+      y <- seq(0, 1, t)
+      z <- seq(1, 0,-t) 
+      leftdraw <- dbeta(z, 4,14)*.2
+      rightdraw <- dbeta(y, 4,14) *.2
+      data<-data.frame(x = seq(0, 5, t*5), y = prop() * leftdraw + (1 - prop()) * rightdraw)
       # Change: above is new, below is original  
       #data.frame(x = seq(0, 5, t),
       #y = input$prop * leftdraw + (1 - input$prop) * rightdraw)
@@ -678,9 +676,9 @@ shinyServer(function(session, input, output) {
       lefts <-
         input$bisize * 10 - rights # Number of elements sampled from left distribution (represented by 0)
       leftbetas <-
-        rbeta(lefts, 2, 8)*5 # Samples left distribution
+        rbeta(lefts, 4, 14)*5 # Samples left distribution
       rightbetas <-
-        5 - rbeta(rights, 2, 8)*5 # Samples right distribution
+        5 - rbeta(rights, 4, 14)*5 # Samples right distribution
       
       # Loop to assign values from gamma distributions to rand
       rightIndex <- 1
@@ -720,9 +718,9 @@ shinyServer(function(session, input, output) {
       lefts <-
         input$bisize * 50 - rights # Number of elements sampled from left distribution (represented by 0)
       leftbetas <-
-        rbeta(lefts, 2, 8)*5 # Samples left distribution
+        rbeta(lefts, 4, 14)*5 # Samples left distribution
       rightbetas <-
-        5 - rbeta(rights, 2, 8)*5 # Samples right distribution
+        5 - rbeta(rights, 4, 14)*5 # Samples right distribution
       
       # Loop to assign values from gamma distributions to rand
       rightIndex <- 1
@@ -780,9 +778,9 @@ shinyServer(function(session, input, output) {
           input$bisize - rights # Number of elements sampled from left distribution (represented by 0)
         
         leftbetas <-
-          rbeta(lefts, 2, 8)*5 # Samples left distribution
+          rbeta(lefts, 4, 14)*5 # Samples left distribution
         rightbetas <-
-          5 - rbeta(rights, 2, 8)*5 # Samples right distribution
+          5 - rbeta(rights, 4, 14)*5 # Samples right distribution
         
         # Loop to assign values from gamma distributions to rand
         rightIndex <- 1
