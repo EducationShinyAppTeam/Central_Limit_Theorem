@@ -137,13 +137,13 @@ shinyServer(function(session, input, output) {
     ###################################################################
     ## Left skewed
     ####################################################################
-    
+
     # Population of left skewed
     output$plotleft1 <- renderPlot({
       # plot(seq(5,0,-.001), dgamma(seq(0,5,.001), input$leftskew, input$leftskew),
       #      main="Population Graph", col="red", xlab="value", ylab="density", lwd = 1)
       curve(
-        dgamma(-x, shape = input$leftskew, beta = 1),
+        dgamma(-x, shape = 11-10*input$leftskew, beta = 1),
         main = "Population Graph",
         col = "red",
         xlab = "value",
@@ -153,7 +153,7 @@ shinyServer(function(session, input, output) {
         cex.axis = 1.5,
         cex.main = 1.5,
         cex.sub = 1.5,
-        xlim = c(input$leftskew - 9 * sqrt(input$leftskew), 0)
+        xlim = c(11-10*input$leftskew - 9 * sqrt(11-10*input$leftskew), 0)
       )
     })
     
@@ -161,7 +161,7 @@ shinyServer(function(session, input, output) {
     firstfifData1 <- reactive(matrix(
       -rgamma(
         n = 50 * input$leftsize,
-        input$leftskew,
+        11-10*input$leftskew,
         beta = 1
       ),
       nrow = 50,
@@ -174,7 +174,7 @@ shinyServer(function(session, input, output) {
       matrix.means <- matrix(0, nrow = 50, ncol = input$leftsize)
       for (i in 1:50) {
         for (j in 1:input$leftsize) {
-          matrix.means[i, j] = mean(matrix[i, 1:j])
+          matrix.means[i, j] = mean(matrix[i, 1:j])*j+j*(11-10*input$leftskew)
         }
       }
       
@@ -189,7 +189,7 @@ shinyServer(function(session, input, output) {
         datameans = append(datameans, mean(
           -rgamma(
             n = input$leftsize,
-            shape = input$leftskew,
+            shape =  11-10*input$leftskew,
             beta = 1
           )
         ))
@@ -291,7 +291,7 @@ shinyServer(function(session, input, output) {
       # plot(seq(0,5,.001),dgamma(seq(0,5,.001),input$rightskew, input$rightskew),
       #      main="Population Graph", col="red", xlab="value", ylab="density")
       curve(
-        dgamma(x, shape = input$rightskew, beta = 1),
+        dgamma(x, shape = 11-10*input$rightskew, beta = 1),
         main = "Population Graph",
         col = "red",
         xlab = "value",
@@ -301,7 +301,7 @@ shinyServer(function(session, input, output) {
         cex.axis = 1.5,
         cex.main = 1.5,
         cex.sub = 1.5,
-        xlim = c(0, input$rightskew + 9 * sqrt(input$rightskew))
+        xlim = c(0, 11-10*input$rightskew + 9 * sqrt(11-10*input$rightskew))
       )
     })
     
@@ -310,7 +310,7 @@ shinyServer(function(session, input, output) {
     firstfifData2 <- reactive(matrix(
       rgamma(
         n = 50 * input$rightsize,
-        input$rightskew,
+        11-10*input$rightskew,
         beta = 1
       ),
       nrow = 50,
@@ -323,7 +323,7 @@ shinyServer(function(session, input, output) {
       matrix.means <- matrix(0, nrow = 50, ncol = input$rightsize)
       for (i in 1:50) {
         for (j in 1:input$rightsize) {
-          matrix.means[i, j] = mean(matrix[i, 1:j])
+          matrix.means[i, j] = mean(matrix[i, 1:j])*j-j*(11-10*input$rightskew)
         }
       }
       
@@ -338,7 +338,7 @@ shinyServer(function(session, input, output) {
         datameans = append(datameans, mean(
           rgamma(
             n = input$rightsize,
-            shape = input$rightskew,
+            shape = 11-10*input$rightskew,
             beta = 1
           )
         ))
@@ -623,6 +623,9 @@ shinyServer(function(session, input, output) {
     ## Bimodal
     ####################################################################
     
+    # Change: Added reactive to go from percent to proportion
+    prop<-reactive({input$prop/100})
+    
     # Population for biomodel
     output$plotbiomodel1 <- renderPlot({
       # t <- 0.0001
@@ -633,14 +636,18 @@ shinyServer(function(session, input, output) {
       # leftdraw <- dgamma(z, input$leftskew, beta=1)
       # rightdraw <- dgamma(y, input$rightskew, beta=1)
       # Z <- input$prop*leftdraw + (1-input$prop)*rightdraw
+      
       t <- 5 / (input$bisize * input$bireps)
       y <- seq(0, 5, t)
       z <- seq(5, 0, -t)
       leftdraw <- dgamma(z, 1.2, beta = 1)
       rightdraw <- dgamma(y, 1.2, beta = 1)
       data <-
-        data.frame(x = seq(0, 5, t),
-                   y = 0.01*input$prop * leftdraw + (1 - 0.01*input$prop) * rightdraw)
+        data<-data.frame(x = seq(0, 5, t), 
+                         y = prop() * leftdraw + (1 - prop()) * rightdraw)
+      # Change: above is new, below is original  
+      #data.frame(x = seq(0, 5, t),
+      #y = input$prop * leftdraw + (1 - input$prop) * rightdraw)
       
       # Make the density plot
       makeDensityPlot(data = data, xlims = c(0, 5))
@@ -653,19 +660,19 @@ shinyServer(function(session, input, output) {
     })
     
     
-    # Matrix for first 50 reps of data
+    # Matrix for first fif reps of data
     firstfifData4 <- reactive({
       rand <- sample(
         x = c(0, 1),
-        size = input$bisize*50,
+        size = input$bisize * 50,
         replace = TRUE,
-        prob = c(input$prop*0.01, 1 - input$prop*0.01)
+        prob = c(1 - prop(), prop()) # Change: switch input$prop for prop() and swapped order (because was wrong in my code)
       )
       
       rights <-
         sum(rand) # Number of elements sampled from the right distribution (represented by 1)
       lefts <-
-        input$bisize*50 - rights # Number of elements sampled from left distribution (represented by 0)
+        input$bisize * 10 - rights # Number of elements sampled from left distribution (represented by 0)
       leftGammas <-
         rgamma(lefts, 1.25, beta = 1) # Samples left distribution
       rightGammas <-
@@ -684,7 +691,7 @@ shinyServer(function(session, input, output) {
           rightIndex <- rightIndex + 1
         }
       }
-      matrix(rand, nrow = 50 , ncol = input$bisize
+      matrix(rand, nrow = 50
              # mix.synthetic.facing.gamma(N = 10*input$bisize, mix.prob = 1-input$prop,
              #                                        lower = 0, upper = 6, shape1=input$leftskew, scale1=1,
              #                                        shape2=input$rightskew, scale2=1),
@@ -695,8 +702,48 @@ shinyServer(function(session, input, output) {
     
     
     
+    # Matrix for first fif reps of data
+    firstfifData4 <- reactive({
+      rand <- sample(
+        x = c(0, 1),
+        size = input$bisize * 50,
+        replace = TRUE,
+        prob = c(1 - prop(), prop()) # Change: switch input$prop for prop() and swapped order (because was wrong in my code)
+      )
+      
+      rights <-
+        sum(rand) # Number of elements sampled from the right distribution (represented by 1)
+      lefts <-
+        input$bisize * 50 - rights # Number of elements sampled from left distribution (represented by 0)
+      leftGammas <-
+        rgamma(lefts, 1.25, beta = 1) # Samples left distribution
+      rightGammas <-
+        5 - rgamma(rights, 1.25, beta = 1) # Samples right distribution
+      
+      # Loop to assign values from gamma distributions to rand
+      rightIndex <- 1
+      leftIndex <- 1
+      for (x in 1:length(rand)) {
+        if (rand[x] == 0) {
+          rand[x] <- leftGammas[leftIndex]
+          leftIndex <- leftIndex + 1
+        }
+        else{
+          rand[x] <- rightGammas[rightIndex]
+          rightIndex <- rightIndex + 1
+        }
+      }
+      matrix(rand, nrow = 50
+             # mix.synthetic.facing.gamma(N = 10*input$bisize, mix.prob = 1-input$prop,
+             #                                        lower = 0, upper = 6, shape1=input$leftskew, scale1=1,
+             #                                        shape2=input$rightskew, scale2=1),
+             #             nrow = 10, ncol = input$bisize
+      )})
     
-    # Write the mean of first 50 data into vector
+    
+    
+    
+    # Write the mean of first fif data into vector
     firstfif4 <- reactive({
       matrix <- firstfifData4()
       matrix.means <- matrix(0, nrow = 50, ncol = input$bisize)
@@ -711,23 +758,23 @@ shinyServer(function(session, input, output) {
     })
     
     
-    # Merge the first 50 means with the rest of data
+    # Merge the first fif means with the rest of data
     data4 <- reactive({
       datameans = firstfif4()
-      
-      for (i in 50:input$bireps) {
+      for (i in 1:(input$bireps - 50)) {
         # Random vector of 0s and 1s to determine which distribution each element samples from
         rand <- sample(
           x = c(0, 1),
           size = input$bisize,
           replace = TRUE,
-          prob = c(input$prop*0.01, 1 - input$prop*0.01)
+          prob = c( 1 - prop(),prop()) # Change: switch input$prop for prop() and swapped order (because was wrong in my code)
         )
         
         rights <-
           sum(rand) # Number of elements sampled from the right distribution (represented by 1)
         lefts <-
           input$bisize - rights # Number of elements sampled from left distribution (represented by 0)
+        
         leftGammas <-
           rgamma(lefts, 1.25, beta = 1) # Samples left distribution
         rightGammas <-
@@ -751,11 +798,8 @@ shinyServer(function(session, input, output) {
         #datameans = append(datameans, mean(mix.synthetic.facing.gamma(N = input$bisize, mix.prob = 1-input$prop,
         #                                                              lower = 0, upper = 6, shape1=input$leftskew, scale1=1,
         #                                                              shape2=input$rightskew, scale2=1)))
-        
       }
       return(datameans)
-      
-      
     })
     
     
@@ -803,14 +847,14 @@ shinyServer(function(session, input, output) {
           main = "All Samples Histogram",
           col = "lightblue",
           breaks = input$bireps,
-          freq = TRUE,
+          freq = FALSE,
           cex.lab = 1.5,
           cex.axis = 1.5,
           cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "sample average",
-          
-          
+          ylim = c(0, max(tmp, highestCount) + 0.25),
+          xlim = c(0,5)
         )
         curve(
           dnorm(x, mean = mean(vector), sd = sd(vector)),
@@ -825,14 +869,14 @@ shinyServer(function(session, input, output) {
           main = "All Samples Histogram",
           col = "lightblue",
           breaks = 80,
-          freq = TRUE,
+          freq = FALSE,
           cex.lab = 1.5,
           cex.axis = 1.5,
           cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "sample average",
-          
-          
+          ylim = c(0, max(tmp, highestCount) + 0.25),
+          xlim = c(0,5)
         )
         curve(
           dnorm(x, mean = mean(vector), sd = sd(vector)),
@@ -843,19 +887,6 @@ shinyServer(function(session, input, output) {
       }
       
     })
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     

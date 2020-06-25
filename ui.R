@@ -164,9 +164,9 @@ shinyUI(dashboardPage(
                   sliderInput(
                     "leftskew",
                     " Skewness:",
-                    min = 1,
-                    max = 10,
-                    value = 1,
+                    min = 0,
+                    max = 1,
+                    value = 0.5,
                     step = 0.1,
                     ticks = FALSE
                   ),
@@ -186,9 +186,9 @@ shinyUI(dashboardPage(
                   sliderInput(
                     "rightskew",
                     " Skewness:",
-                    min = 1,
-                    max = 10,
-                    value = 1,
+                    min = 0,
+                    max = 1,
+                    value = 0.5,
                     step = 0.1,
                     ticks = FALSE
                   ),
