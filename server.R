@@ -248,6 +248,7 @@ shinyServer(function(session, input, output) {
           cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "sample average",
+       
           
         )
         curve(
@@ -269,6 +270,7 @@ shinyServer(function(session, input, output) {
           cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "sample average",
+      
           
         )
         curve(
@@ -398,6 +400,7 @@ shinyServer(function(session, input, output) {
           cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "sample average",
+  
           
         )
         curve(
@@ -419,6 +422,7 @@ shinyServer(function(session, input, output) {
           cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "sample average",
+        
           
         )
         curve(
@@ -673,21 +677,21 @@ shinyServer(function(session, input, output) {
         sum(rand) # Number of elements sampled from the right distribution (represented by 1)
       lefts <-
         input$bisize * 10 - rights # Number of elements sampled from left distribution (represented by 0)
-      leftGammas <-
-        rgamma(lefts, 1.25, beta = 1) # Samples left distribution
-      rightGammas <-
-        5 - rgamma(rights, 1.25, beta = 1) # Samples right distribution
+      leftbetas <-
+        rbeta(lefts, 2, 8)*5 # Samples left distribution
+      rightbetas <-
+        5 - rbeta(rights, 2, 8)*5 # Samples right distribution
       
       # Loop to assign values from gamma distributions to rand
       rightIndex <- 1
       leftIndex <- 1
       for (x in 1:length(rand)) {
         if (rand[x] == 0) {
-          rand[x] <- leftGammas[leftIndex]
+          rand[x] <- leftbetas[leftIndex]
           leftIndex <- leftIndex + 1
         }
         else{
-          rand[x] <- rightGammas[rightIndex]
+          rand[x] <- rightbetas[rightIndex]
           rightIndex <- rightIndex + 1
         }
       }
@@ -715,21 +719,21 @@ shinyServer(function(session, input, output) {
         sum(rand) # Number of elements sampled from the right distribution (represented by 1)
       lefts <-
         input$bisize * 50 - rights # Number of elements sampled from left distribution (represented by 0)
-      leftGammas <-
-        rgamma(lefts, 1.25, beta = 1) # Samples left distribution
-      rightGammas <-
-        5 - rgamma(rights, 1.25, beta = 1) # Samples right distribution
+      leftbetas <-
+        rbeta(lefts, 2, 8)*5 # Samples left distribution
+      rightbetas <-
+        5 - rbeta(rights, 2, 8)*5 # Samples right distribution
       
       # Loop to assign values from gamma distributions to rand
       rightIndex <- 1
       leftIndex <- 1
       for (x in 1:length(rand)) {
         if (rand[x] == 0) {
-          rand[x] <- leftGammas[leftIndex]
+          rand[x] <- leftbetas[leftIndex]
           leftIndex <- leftIndex + 1
         }
         else{
-          rand[x] <- rightGammas[rightIndex]
+          rand[x] <- rightbetas[rightIndex]
           rightIndex <- rightIndex + 1
         }
       }
@@ -775,21 +779,21 @@ shinyServer(function(session, input, output) {
         lefts <-
           input$bisize - rights # Number of elements sampled from left distribution (represented by 0)
         
-        leftGammas <-
-          rgamma(lefts, 1.25, beta = 1) # Samples left distribution
-        rightGammas <-
-          5 - rgamma(rights, 1.25, beta = 1) # Samples right distribution
+        leftbetas <-
+          rbeta(lefts, 2, 8)*5 # Samples left distribution
+        rightbetas <-
+          5 - rbeta(rights, 2, 8)*5 # Samples right distribution
         
         # Loop to assign values from gamma distributions to rand
         rightIndex <- 1
         leftIndex <- 1
         for (x in 1:length(rand)) {
           if (rand[x] == 0) {
-            rand[x] <- leftGammas[leftIndex]
+            rand[x] <- leftbetas[leftIndex]
             leftIndex <- leftIndex + 1
           }
           else{
-            rand[x] <- rightGammas[rightIndex]
+            rand[x] <- rightbetas[rightIndex]
             rightIndex <- rightIndex + 1
           }
         }
@@ -854,7 +858,7 @@ shinyServer(function(session, input, output) {
           cex.sub = 1.5,
           xlab = "sample average",
           ylim = c(0, max(tmp, highestCount) + 0.25),
-          xlim = c(0,5)
+ 
         )
         curve(
           dnorm(x, mean = mean(vector), sd = sd(vector)),
@@ -876,7 +880,7 @@ shinyServer(function(session, input, output) {
           cex.sub = 1.5,
           xlab = "sample average",
           ylim = c(0, max(tmp, highestCount) + 0.25),
-          xlim = c(0,5)
+         
         )
         curve(
           dnorm(x, mean = mean(vector), sd = sd(vector)),
