@@ -856,6 +856,7 @@ shinyServer(function(session, input, output) {
           cex.sub = 1.5,
           xlab = "sample average",
           ylim = c(0, max(tmp, highestCount) + 0.25),
+          xlim = c(0,5)
  
         )
         curve(
@@ -878,6 +879,7 @@ shinyServer(function(session, input, output) {
           cex.sub = 1.5,
           xlab = "sample average",
           ylim = c(0, max(tmp, highestCount) + 0.25),
+          xlim = c(0,5)
          
         )
         curve(
