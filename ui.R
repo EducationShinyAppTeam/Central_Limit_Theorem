@@ -167,7 +167,7 @@ shinyUI(dashboardPage(
                     min = 0,
                     max = 1,
                     value = 0.5,
-                    step = 0.1,
+                    step = 0.01,
                     ticks = FALSE
                   ),
                   #fluidRow(
@@ -189,7 +189,7 @@ shinyUI(dashboardPage(
                     min = 0,
                     max = 1,
                     value = 0.5,
-                    step = 0.1,
+                    step = 0.01,
                     ticks = FALSE
                   ),
                   #fluidRow(
@@ -208,10 +208,10 @@ shinyUI(dashboardPage(
                   sliderInput(
                     "inverse",
                     " Peakedness:",
-                    min = 1,
-                    max = 10,
-                    value = 1,
-                    step = 0.1,
+                    min = 0,
+                    max = 1,
+                    value = 0.5,
+                    step = 0.01,
                     ticks = FALSE
                   ),
                   #fluidRow(
@@ -236,7 +236,7 @@ shinyUI(dashboardPage(
                     "% under right mode:",
                     min = 10,
                     max = 90,
-                    value = 20,
+                    value = 50,
                     ticks = FALSE,
                     post = "%"
                   ),

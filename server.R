@@ -56,7 +56,7 @@ shinyServer(function(session, input, output) {
           xend = 0,
           yend = 1
         ),
-        color = "#0072B2",
+        color = "red",
         size = 1.5) +
         geom_segment(aes(
           x = 1,
@@ -64,7 +64,7 @@ shinyServer(function(session, input, output) {
           xend = 1,
           yend = 1
         ),
-        color = "#0072B2",
+        color = "red",
         size = 1.5)
     }
     plot
@@ -174,7 +174,7 @@ shinyServer(function(session, input, output) {
       matrix.means <- matrix(0, nrow = 50, ncol = input$leftsize)
       for (i in 1:50) {
         for (j in 1:input$leftsize) {
-          matrix.means[i, j] = mean(matrix[i, 1:j])*j+j*(11-10*input$leftskew)
+          matrix.means[i, j] = mean(matrix[i, 1:j])
         }
       }
       
@@ -325,7 +325,7 @@ shinyServer(function(session, input, output) {
       matrix.means <- matrix(0, nrow = 50, ncol = input$rightsize)
       for (i in 1:50) {
         for (j in 1:input$rightsize) {
-          matrix.means[i, j] = mean(matrix[i, 1:j])*j-j*(11-10*input$rightskew)
+          matrix.means[i, j] = mean(matrix[i, 1:j])
         }
       }
       
@@ -439,58 +439,21 @@ shinyServer(function(session, input, output) {
     ###################################################################
     ## Symmetric skewed
     ####################################################################
-    
+    inverse<-reactive({round(14.6*input$inverse^3-5.7*input$inverse^2 + input$inverse+.1,3)})
     # Population of Symmetric skewed
-    output$plotsymmetric1 <- renderPlot({
+    output$plotsymmetric1 <- renderCachedPlot({
       x <- seq(0, 1, length = 100)
       dens <-
         dbeta(x,
-              shape1 = input$inverse,
-              shape2 = input$inverse)
+              shape1 = inverse(),
+              shape2 = inverse())
+      data <- data.frame(x = x, y = dens)
       
-      # Dealing with peakness = 1 special case
-      if (input$inverse == 1) {
-        plot(
-          x,
-          dens,
-          type = "l",
-          yaxs = "i",
-          xaxs = "i",
-          xlim = c(-0.03, 1.03),
-          cex.lab = 1.5,
-          cex.axis = 1.5,
-          cex.main = 1.5,
-          cex.sub = 1.5,
-          xlab = "value",
-          ylab = "density",
-          main = "Population Graph",
-          col = "red",
-          lwd = 5
-        )
-        segments(0, 0, 0, 1, col = "red", lwd = 5)
-        segments(1, 0, 1, 1, col = "red", lwd = 5)
-        segments(0, 1, 1, 1, col = "red", lwd = 5)
-        
-      } else{
-        plot(
-          x,
-          dens,
-          type = "l",
-          yaxs = "i",
-          xaxs = "i",
-          xlim = c(-0.01, 1.01),
-          cex.lab = 1.5,
-          cex.axis = 1.5,
-          cex.main = 1.5,
-          cex.sub = 1.5,
-          xlab = "value",
-          ylab = "density",
-          main = "Population Graph",
-          col = "red",
-          lwd = 5
-        )
-        lines(x, dens, col = "red")
-      }
+      # Make density plot separated by case where the peakedness is exactly 1 (causes a "box" shape)
+      makeDensityPlot(data = data, xlims = c(-0.03, 1.03), path=inverse())
+    },
+    cacheKeyExpr = {
+      list(input$symsize, input$inverse)
     })
     
     
@@ -498,8 +461,8 @@ shinyServer(function(session, input, output) {
     firstfifData3 <- reactive(matrix(
       rbeta(
         50 * input$symsize,
-        shape1 = input$inverse,
-        shape2 = input$inverse
+        shape1 = inverse(),
+        shape2 = inverse()
       ),
       nrow = 50,
       ncol = input$symsize
@@ -528,8 +491,8 @@ shinyServer(function(session, input, output) {
         datameans = append(datameans, mean(
           rbeta(
             n = input$symsize,
-            shape1 = input$inverse,
-            shape2 = input$inverse
+            shape1 = inverse(),
+            shape2 = inverse()
           )
         ))
       }
