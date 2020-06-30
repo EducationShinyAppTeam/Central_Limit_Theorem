@@ -1,10 +1,6 @@
 library(shiny)
 library(shinydashboard)
-library(plotrix)
-library(shinythemes)
 library(shinyBS)
-library(shinyWidgets)
-
 
 
 # Define UI for application that draws a histogram
@@ -674,15 +670,6 @@ shinyUI(dashboardPage(
         ),
         p(
           class = "hangingindent",
-          "Lemon, J. (2006) Plotrix: a package in the red light district of R. R-News, 6(4): 8-12."
-        ),
-        p(
-          class = "hangingindent",
-          "Winston Chang (2018). shinythemes: Themes for Shiny. R package version 1.1.2.
-  https://CRAN.R-project.org/package=shinythemes"
-        ),
-        p(
-          class = "hangingindent",
           "DEric Bailey (2015). shinyBS: Twitter Bootstrap Components for Shiny. R package version 0.61.
   https://CRAN.R-project.org/package=shinyBS"
         ),
@@ -701,18 +688,6 @@ shinyUI(dashboardPage(
           " H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016."
         )
         ,
-        
-        p(
-          class = "hangingindent",
-          "Hadley Wickham (2007). Reshaping Data with the reshape Package. Journal of Statistical Software, 21(12), 1-20. URL
-  http://www.jstatsoft.org/v21/i12/."
-        ),
-        
-        p(
-          class = "hangingindent",
-          " Hadley Wickham and Dana Seidel (2020). scales: Scale Functions for Visualization. R package version 1.1.1.
-  https://CRAN.R-project.org/package=scales"
-        ),
         p(
           class = "hangingindent",
           "R Core Team (2020). R: A language and environment for statistical computing. R Foundation for Statistical Computing,
@@ -727,11 +702,6 @@ shinyUI(dashboardPage(
           class = "hangingindent",
           "Hadley Wickham, Romain François, Lionel Henry and Kirill Müller (2020). dplyr: A Grammar of Data Manipulation. R package
   version 0.8.5. https://CRAN.R-project.org/package=dplyr"
-        ),
-        p(
-          class = "hangingindent",
-          "Kun Ren and Kenton Russell (2016). formattable: Create 'Formattable' Data Structures. R package version 0.2.0.1.
-  https://CRAN.R-project.org/package=formattable"
         ),
         p(
           class = "hangingindent",
