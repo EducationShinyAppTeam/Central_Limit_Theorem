@@ -234,9 +234,6 @@ shinyServer(function(session, input, output) {
     # All Sample Histogram
     output$plotleft3 <- renderPlot({
       vector <- data1()
-      tmphist <- hist(vector, plot = FALSE)
-      highestCount <- max(tmphist$density)
-      tmp <- dnorm(vector, mean = mean(vector), sd = sd(vector))
       if (input$leftreps <= 100) {
         hist(
           vector,
@@ -393,9 +390,6 @@ shinyServer(function(session, input, output) {
     # All Sample Histogram
     output$plotright3 <- renderPlot({
       vector <- data2()
-      tmphist <- hist(vector, plot = FALSE)
-      highestCount <- max(tmphist$density)
-      tmp <- dnorm(vector, mean = mean(vector), sd = sd(vector))
       if (input$rightreps <= 80) {
         hist(
           vector,
@@ -552,9 +546,6 @@ shinyServer(function(session, input, output) {
     # All Sample Histogram
     output$plotsymmetric3 <- renderPlot({
       vector <- data3()
-      tmphist <- hist(vector, plot = FALSE)
-      highestCount <- max(tmphist$density)
-      tmp <- dnorm(vector, mean = mean(vector), sd = sd(vector))
       if (input$symreps <= 80) {
         hist(
           vector,
@@ -822,9 +813,6 @@ shinyServer(function(session, input, output) {
         # All Sample Histogram
         output$plotbiomodel3 <- renderPlot({
           vector <- data4()
-          tmphist <- hist(vector, plot = FALSE)
-          highestCount <- max(tmphist$density)
-          tmp <- dnorm(vector, mean = mean(vector), sd = sd(vector))
           if (input$bireps <= 80) {
             hist(
               vector,
