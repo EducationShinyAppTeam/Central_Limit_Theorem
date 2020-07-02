@@ -33,7 +33,7 @@ shinyServer(function(session, input, output) {
       geom_path(color = "red", size = 1.5) +
       xlim(xlims) +
       xlab("value") +
-      ylab("density") +
+      ylab("Density") +
       ggtitle("Population Graph") +
       theme(
         axis.text = element_text(size = 18),
@@ -120,14 +120,14 @@ shinyServer(function(session, input, output) {
     input$asreps
     input$assize
     
-    #ipodshuffle
+    #Playlistshuffle
     input$ptype
     input$s1
     input$s2
     input$s3
     input$s4
-    input$ipodreps
-    input$ipodsize
+    input$Playlistreps
+    input$Playlistsize
   },
   {
     ###################################################################
@@ -147,13 +147,14 @@ shinyServer(function(session, input, output) {
         main = "Population Graph",
         col = "red",
         xlab = "value",
-        ylab = "density",
+        ylab = "Density",
         lwd = 5,
         cex.lab = 1.5,
         cex.axis = 1.5,
         cex.main = 1.5,
         cex.sub = 1.5,
         xlim = c(11 - 10 * input$leftskew - 9 * sqrt(11 - 10 * input$leftskew), 0)
+    
       )
     })
     
@@ -205,11 +206,11 @@ shinyServer(function(session, input, output) {
         hist(
           matrix[sample(input$leftreps, 1, replace = FALSE),],
           freq = FALSE,
-          main = "Histogram of values in a single sample",
+          main = "Single Sample Histogram",
           col = "lightblue",
           cex.lab = 1.5,
           cex.axis = 1.5,
-          cex.main = 1.25,
+          cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "individual value"
         )
@@ -218,11 +219,11 @@ shinyServer(function(session, input, output) {
         hist(
           matrix[sample(50, 1, replace = FALSE),],
           freq = FALSE,
-          main = "Histogram of values in a single sample",
+          main = "Single Sample Histogram",
           col = "lightblue",
           cex.lab = 1.5,
           cex.axis = 1.5,
-          cex.main = 1.25,
+          cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "individual value"
         )
@@ -301,7 +302,7 @@ shinyServer(function(session, input, output) {
         main = "Population Graph",
         col = "red",
         xlab = "value",
-        ylab = "density",
+        ylab = "Density",
         lwd = 5,
         cex.lab = 1.5,
         cex.axis = 1.5,
@@ -364,11 +365,11 @@ shinyServer(function(session, input, output) {
         hist(
           matrix[sample(input$rightreps, 1, replace = FALSE),],
           freq = FALSE,
-          main = "Histogram of values in a single sample",
+          main = "Single Sample Histogram",
           col = "lightblue",
           cex.lab = 1.5,
           cex.axis = 1.5,
-          cex.main = 1.25,
+          cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "individual value"
         )
@@ -377,11 +378,11 @@ shinyServer(function(session, input, output) {
         hist(
           matrix[sample(50, 1, replace = FALSE),],
           freq = FALSE,
-          main = "Histogram of values in a single sample",
+          main = "Single Sample Histogram",
           col = "lightblue",
           cex.lab = 1.5,
           cex.axis = 1.5,
-          cex.main = 1.25,
+          cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "individual value"
         )
@@ -523,11 +524,11 @@ shinyServer(function(session, input, output) {
         hist(
           matrix[sample(input$symreps, 1, replace = FALSE),],
           freq = FALSE,
-          main = "Histogram of values in a single sample",
+          main = "Single Sample Histogram",
           col = "lightblue",
           cex.lab = 1.5,
           cex.axis = 1.5,
-          cex.main = 1.25,
+          cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "individual value"
         )
@@ -536,11 +537,11 @@ shinyServer(function(session, input, output) {
         hist(
           matrix[sample(50, 1, replace = FALSE),],
           freq = FALSE,
-          main = "Histogram of values in a single sample",
+          main = "Single Sample Histogram",
           col = "lightblue",
           cex.lab = 1.5,
           cex.axis = 1.5,
-          cex.main = 1.25,
+          cex.main = 1.5,
           cex.sub = 1.5,
           xlab = "individual value"
         )
@@ -794,11 +795,11 @@ shinyServer(function(session, input, output) {
             hist(
               matrix[sample(input$bireps, 1, replace = FALSE),],
               freq = FALSE,
-              main = "Histogram of values in a single sample",
+              main = "Single Sample Histogram",
               col = "lightblue",
               cex.lab = 1.5,
               cex.axis = 1.5,
-              cex.main = 1.25,
+              cex.main = 1.5,
               cex.sub = 1.5,
               xlab = "individual value"
             )
@@ -807,11 +808,11 @@ shinyServer(function(session, input, output) {
             hist(
               matrix[sample(50, 1, replace = FALSE),],
               freq = FALSE,
-              main = "Histogram of values in a single sample",
+              main = "Single Sample Histogram",
               col = "lightblue",
               cex.lab = 1.5,
               cex.axis = 1.5,
-              cex.main = 1.25,
+              cex.main = 1.5,
               cex.sub = 1.5,
               xlab = "individual value"
             )
@@ -949,11 +950,11 @@ shinyServer(function(session, input, output) {
             hist(
               matrix[sample(input$poreps, 1, replace = FALSE),],
               freq = FALSE,
-              main = "Histogram of values in a single sample",
+              main = "Single Sample Histogram",
               col = "lightblue",
               cex.lab = 1.5,
               cex.axis = 1.5,
-              cex.main = 1.25,
+              cex.main = 1.5,
               cex.sub = 1.5,
               xlab = "individual value"
             )
@@ -962,11 +963,11 @@ shinyServer(function(session, input, output) {
             hist(
               matrix[sample(50, 1, replace = FALSE),],
               freq = FALSE,
-              main = "Histogram of values in a single sample",
+              main = "Single Sample Histogram",
               col = "lightblue",
               cex.lab = 1.5,
               cex.axis = 1.5,
-              cex.main = 1.25,
+              cex.main = 1.5,
               cex.sub = 1.5,
               xlab = "individual value"
             )
@@ -1062,7 +1063,8 @@ shinyServer(function(session, input, output) {
         
         # Matrix for first 50 reps of data
         firstfifData6 <- reactive(matrix(
-          sample(die(), 50 * input$assize,
+          sample(die(), 
+                 50 * input$assize,
                  replace = TRUE),
           nrow = 50,
           ncol = input$assize
@@ -1103,11 +1105,11 @@ shinyServer(function(session, input, output) {
             hist(
               matrix[sample(input$asreps, 1, replace = FALSE),],
               freq = FALSE,
-              main = "Histogram of values in a single sample",
+              main = "Single Sample Histogram",
               col = "lightblue",
               cex.lab = 1.5,
               cex.axis = 1.5,
-              cex.main = 1.25,
+              cex.main = 1.5,
               cex.sub = 1.5,
               xlab = "individual value"
             )
@@ -1116,11 +1118,11 @@ shinyServer(function(session, input, output) {
             hist(
               matrix[sample(50, 1, replace = FALSE),],
               freq = FALSE,
-              main = "Histogram of values in a single sample",
+              main = "Single Sample Histogram",
               col = "lightblue",
               cex.lab = 1.5,
               cex.axis = 1.5,
-              cex.main = 1.25,
+              cex.main = 1.5,
               cex.sub = 1.5,
               xlab = "individual value"
             )
@@ -1130,9 +1132,6 @@ shinyServer(function(session, input, output) {
         # All Sample Histogram
         output$line1 <- renderPlot({
           vector <- data6()
-          tmphist <- hist(vector, plot = FALSE)
-          highestCount <- max(tmphist$density)
-          tmp <- dnorm(vector, mean = mean(vector), sd = sd(vector))
           if (input$asreps <= 80) {
             hist(
               vector,
@@ -1179,10 +1178,10 @@ shinyServer(function(session, input, output) {
         })
         
         ###################################################################
-        ## IPOD SHUFFLE
+        ## Playlist SHUFFLE
         ####################################################################
         
-        #Population and Sum for IPOD
+        #Population and Sum for Playlist
         
         # set up songs from four types
         songs <- reactive({
@@ -1192,7 +1191,7 @@ shinyServer(function(session, input, output) {
                      rep(input$s4))
         })
         
-        # average songs in the IPOD
+        # average songs in the Playlist
         avg_songs <- reactive({
           mean(songs())
         })
@@ -1225,7 +1224,7 @@ shinyServer(function(session, input, output) {
         output$Plot1 <- renderPlot({
           pjazz <- input$s1 / sum(songs())
           count <-
-            c(pjazz * input$ipodsize, (1 - pjazz) * input$ipodsize)
+            c(pjazz * input$Playlistsize, (1 - pjazz) * input$Playlistsize)
           barplot(
             count,
             main = "Population Graph",
@@ -1239,7 +1238,7 @@ shinyServer(function(session, input, output) {
             cex.sub = 1.5,
             names.arg = c("Jazz", "Other music")
           )
-          # n <- input$ipodsize
+          # n <- input$Playlistsize
           # x <- seq(0, n, by = 1)
           # plot (x, dbinom(x, n, pjazz, log = FALSE), type = "l", xlab = "values",ylab = "density",
           #       main = "Population Graph",cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
@@ -1250,7 +1249,7 @@ shinyServer(function(session, input, output) {
         output$Plot2 <- renderPlot({
           prock <- input$s2 / sum(songs())
           count <-
-            c(prock * input$ipodsize, (1 - prock) * input$ipodsize)
+            c(prock * input$Playlistsize, (1 - prock) * input$Playlistsize)
           barplot(
             count,
             main = "Population Graph",
@@ -1264,7 +1263,7 @@ shinyServer(function(session, input, output) {
             cex.sub = 1.5,
             names.arg = c("Rock", "Other music")
           )
-          # n <- input$ipodsize
+          # n <- input$Playlistsize
           # x <- seq(0, n, by = 1)
           # plot (x, dbinom(x, n, prock, log = FALSE), type = "l", xlab = "values",ylab = "density",
           #       main = "Population Graph",cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
@@ -1275,7 +1274,7 @@ shinyServer(function(session, input, output) {
         output$Plot3 <- renderPlot({
           pcountry <- input$s3 / sum(songs())
           count <-
-            c(pcountry * input$ipodsize, (1 - pcountry) * input$ipodsize)
+            c(pcountry * input$Playlistsize, (1 - pcountry) * input$Playlistsize)
           barplot(
             count,
             main = "Population Graph",
@@ -1289,7 +1288,7 @@ shinyServer(function(session, input, output) {
             cex.sub = 1.5,
             names.arg = c("Country", "Other music")
           )
-          # n <- input$ipodsize
+          # n <- input$Playlistsize
           # x <- seq(0, n, by = 1)
           # plot (x, dbinom(x, n, pcountry, log = FALSE), type = "l", xlab = "values",ylab = "density",
           #       main = "Population Graph",cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
@@ -1300,7 +1299,7 @@ shinyServer(function(session, input, output) {
         output$Plot4 <- renderPlot({
           phiphop <- input$s4 / sum(songs())
           count <-
-            c(phiphop * input$ipodsize, (1 - phiphop) * input$ipodsize)
+            c(phiphop * input$Playlistsize, (1 - phiphop) * input$Playlistsize)
           barplot(
             count,
             main = "Population Graph",
@@ -1314,7 +1313,7 @@ shinyServer(function(session, input, output) {
             cex.sub = 1.5,
             names.arg = c("Hip-hop", "Other music")
           )
-          # n <- input$ipodsize
+          # n <- input$Playlistsize
           # x <- seq(0, n, by = 1)
           # plot (x, dbinom(x, n, phiphop, log = FALSE), type = "l", xlab = "values",ylab = "density",
           #       main = "Population Graph",cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
@@ -1331,12 +1330,12 @@ shinyServer(function(session, input, output) {
         # Matrix for first 50 reps of data
         firstfifDataJazz <- reactive(matrix(
           rbinom(
-            50 * input$ipodsize,
+            50 * input$Playlistsize,
             size = 1,
             prob = input$s1 / sum(songs())
           ),
           nrow = 50,
-          ncol = input$ipodsize
+          ncol = input$Playlistsize
         ))
         
         
@@ -1344,9 +1343,9 @@ shinyServer(function(session, input, output) {
         firstfifJazz <- reactive({
           matrix <- firstfifDataJazz()
           matrix.means <-
-            matrix(0, nrow = 50, ncol = input$ipodsize) #matrix with all zeroes
+            matrix(0, nrow = 50, ncol = input$Playlistsize) #matrix with all zeroes
           for (i in 1:50) {
-            for (j in 1:input$ipodsize) {
+            for (j in 1:input$Playlistsize) {
               matrix.means[i, j] = mean(matrix[i, 1:j])
             }
           }
@@ -1358,9 +1357,9 @@ shinyServer(function(session, input, output) {
         # Merge the first fif means with the rest of data
         Jazzdata <- reactive({
           datameans = firstfifJazz()
-          for (i in 1:(input$ipodreps - 50)) {
+          for (i in 1:(input$Playlistreps - 50)) {
             datameans = append(datameans, mean(rbinom(
-              input$ipodsize,
+              input$Playlistsize,
               size = 1,
               prob = input$s1 / sum(songs())
             )))
@@ -1372,21 +1371,21 @@ shinyServer(function(session, input, output) {
         # Matrix for first fif reps of data
         firstfifDataRock <- reactive(matrix(
           rbinom(
-            50 * input$ipodsize,
+            50 * input$Playlistsize,
             size = 1,
             prob = input$s2 / sum(songs())
           ),
           nrow = 50,
-          ncol = input$ipodsize
+          ncol = input$Playlistsize
         ))
         
         
         # Write the mean of first fif data into vector
         firstfifRock <- reactive({
           matrix <- firstfifDataRock()
-          matrix.means <- matrix(0, nrow = 50, ncol = input$ipodsize)
+          matrix.means <- matrix(0, nrow = 50, ncol = input$Playlistsize)
           for (i in 1:50) {
-            for (j in 1:input$ipodsize) {
+            for (j in 1:input$Playlistsize) {
               matrix.means[i, j] = mean(matrix[i, 1:j])
             }
           }
@@ -1398,9 +1397,9 @@ shinyServer(function(session, input, output) {
         # Merge the first fif means with the rest of data
         Rockdata <- reactive({
           datameans = firstfifRock()
-          for (i in 1:(input$ipodreps - 50)) {
+          for (i in 1:(input$Playlistreps - 50)) {
             datameans = append(datameans, mean(rbinom(
-              input$ipodsize,
+              input$Playlistsize,
               size = 1,
               prob = input$s2 / sum(songs())
             )))
@@ -1413,21 +1412,21 @@ shinyServer(function(session, input, output) {
         # Matrix for first fif reps of data
         firstfifDataCountry <- reactive(matrix(
           rbinom(
-            50 * input$ipodsize,
+            50 * input$Playlistsize,
             size = 1,
             prob = input$s3 / sum(songs())
           ),
           nrow = 50,
-          ncol = input$ipodsize
+          ncol = input$Playlistsize
         ))
         
         
         # Write the mean of first fif data into vector
         firstfifCountry <- reactive({
           matrix <- firstfifDataCountry()
-          matrix.means <- matrix(0, nrow = 50, ncol = input$ipodsize)
+          matrix.means <- matrix(0, nrow = 50, ncol = input$Playlistsize)
           for (i in 1:50) {
-            for (j in 1:input$ipodsize) {
+            for (j in 1:input$Playlistsize) {
               matrix.means[i, j] = mean(matrix[i, 1:j])
             }
           }
@@ -1439,9 +1438,9 @@ shinyServer(function(session, input, output) {
         # Merge the first fif means with the rest of data
         Countrydata <- reactive({
           datameans = firstfifCountry()
-          for (i in 1:(input$ipodreps - 50)) {
+          for (i in 1:(input$Playlistreps - 50)) {
             datameans = append(datameans, mean(rbinom(
-              input$ipodsize,
+              input$Playlistsize,
               size = 1,
               prob = input$s3 / sum(songs())
             )))
@@ -1453,21 +1452,21 @@ shinyServer(function(session, input, output) {
         # Matrix for first fif reps of data
         firstfifDataHiphop <- reactive(matrix(
           rbinom(
-            50 * input$ipodsize,
+            50 * input$Playlistsize,
             size = 1,
             prob = input$s4 / sum(songs())
           ),
           nrow = 50,
-          ncol = input$ipodsize
+          ncol = input$Playlistsize
         ))
         
         
         # Write the mean of first fif data into vector
         firstfifHiphop <- reactive({
           matrix <- firstfifDataHiphop()
-          matrix.means <- matrix(0, nrow = 50, ncol = input$ipodsize)
+          matrix.means <- matrix(0, nrow = 50, ncol = input$Playlistsize)
           for (i in 1:50) {
-            for (j in 1:input$ipodsize) {
+            for (j in 1:input$Playlistsize) {
               matrix.means[i, j] = mean(matrix[i, 1:j])
             }
           }
@@ -1479,9 +1478,9 @@ shinyServer(function(session, input, output) {
         # Merge the first fif means with the rest of data
         Hiphopdata <- reactive({
           datameans = firstfifHiphop()
-          for (i in 1:(input$ipodreps - 50)) {
+          for (i in 1:(input$Playlistreps - 50)) {
             datameans = append(datameans, mean(rbinom(
-              input$ipodsize,
+              input$Playlistsize,
               size = 1,
               prob = input$s4 / sum(songs())
             )))
@@ -1495,18 +1494,18 @@ shinyServer(function(session, input, output) {
         output$Plot01 <- renderPlot({
           matrix <- firstfifDataJazz()
           input$new7
-          if (input$ipodreps <= 50) {
+          if (input$Playlistreps <= 50) {
             count <-
-              c(mean(matrix[sample(input$ipodreps, 1, replace = FALSE),]), 1 - mean(matrix[sample(input$ipodreps, 1, replace = FALSE),]))
+              c(mean(matrix[sample(input$Playlistreps, 1, replace = FALSE),]), 1 - mean(matrix[sample(input$Playlistreps, 1, replace = FALSE),]))
             barplot(
               count,
-              main = "Histogram of values in a single sample",
+              main = "Single Sample Histogram",
               xlab = "Jazz vs Other music",
               ylab = "probability",
               col = 'lightblue',
               cex.lab = 1.5,
               cex.axis = 1.5,
-              cex.main = 1.25,
+              cex.main = 1.5,
               cex.sub = 1.5,
               names.arg = c("Jazz", "Other music")
             )
@@ -1516,13 +1515,13 @@ shinyServer(function(session, input, output) {
               c(mean(matrix[sample(50, 1, replace = FALSE),]), 1 - mean(matrix[sample(10, 1, replace = FALSE),]))
             barplot(
               count,
-              main = "Histogram of values in a single sample",
+              main = "Single Sample Histogram",
               xlab = "Jazz vs Other music",
               ylab = "probability",
               col = 'lightblue',
               cex.lab = 1.5,
               cex.axis = 1.5,
-              cex.main = 1.25,
+              cex.main = 1.5,
               cex.sub = 1.5,
               names.arg = c("Jazz", "Other music")
             )
@@ -1536,18 +1535,18 @@ shinyServer(function(session, input, output) {
         output$Plot02 <- renderPlot({
           matrix <- firstfifDataRock()
           input$new7
-          if (input$ipodreps <= 50) {
+          if (input$Playlistreps <= 50) {
             count <-
-              c(1 - mean(matrix[sample(input$ipodreps, 1, replace = FALSE),]), mean(matrix[sample(input$ipodreps, 1, replace = FALSE),]))
+              c(1 - mean(matrix[sample(input$Playlistreps, 1, replace = FALSE),]), mean(matrix[sample(input$Playlistreps, 1, replace = FALSE),]))
             barplot(
               count,
-              main = "Histogram of values in a single sample",
+              main = "Single Sample Histogram",
               xlab = "Rock vs Other music",
               ylab = "probability",
               col = 'lightblue',
               cex.lab = 1.5,
               cex.axis = 1.5,
-              cex.main = 1.25,
+              cex.main = 1.5,
               cex.sub = 1.5,
               names.arg = c("Rock", "Other music")
             )
@@ -1557,13 +1556,13 @@ shinyServer(function(session, input, output) {
               c(1 - mean(matrix[sample(50, 1, replace = FALSE),]), mean(matrix[sample(10, 1, replace = FALSE),]))
             barplot(
               count,
-              main = "Histogram of values in a single sample",
+              main = "Single Sample Histogram",
               xlab = "Rock vs Other music",
               ylab = "probability",
               col = 'lightblue',
               cex.lab = 1.5,
               cex.axis = 1.5,
-              cex.main = 1.25,
+              cex.main = 1.5,
               cex.sub = 1.5,
               names.arg = c("Rock", "Other music")
             )
@@ -1575,18 +1574,18 @@ shinyServer(function(session, input, output) {
         output$Plot03 <- renderPlot({
           matrix <- firstfifDataCountry()
           input$new7
-          if (input$ipodreps <= 50) {
+          if (input$Playlistreps <= 50) {
             count <-
-              c(1 - mean(matrix[sample(input$ipodreps, 1, replace = FALSE),]), mean(matrix[sample(input$ipodreps, 1, replace = FALSE),]))
+              c(1 - mean(matrix[sample(input$Playlistreps, 1, replace = FALSE),]), mean(matrix[sample(input$Playlistreps, 1, replace = FALSE),]))
             barplot(
               count,
-              main = "Histogram of values in a single sample",
+              main = "Single Sample Histogram",
               xlab = "Country vs Other music",
               ylab = "probability",
               col = 'lightblue',
               cex.lab = 1.5,
               cex.axis = 1.5,
-              cex.main = 1.25,
+              cex.main = 1.5,
               cex.sub = 1.5,
               names.arg = c("Country", "Other music")
             )
@@ -1596,13 +1595,13 @@ shinyServer(function(session, input, output) {
               c(1 - mean(matrix[sample(50, 1, replace = FALSE),]), mean(matrix[sample(10, 1, replace = FALSE),]))
             barplot(
               count,
-              main = "Histogram of values in a single sample",
+              main = "Single Sample Histogram",
               xlab = "Country vs Other music",
               ylab = "probability",
               col = 'lightblue',
               cex.lab = 1.5,
               cex.axis = 1.5,
-              cex.main = 1.25,
+              cex.main = 1.5,
               cex.sub = 1.5,
               names.arg = c("Country", "Other music")
             )
@@ -1615,18 +1614,18 @@ shinyServer(function(session, input, output) {
         output$Plot04 <- renderPlot({
           matrix <-  firstfifDataHiphop()
           input$new7
-          if (input$ipodreps <= 50) {
+          if (input$Playlistreps <= 50) {
             count <-
-              c(1 - mean(matrix[sample(input$ipodreps, 1, replace = FALSE),]), mean(matrix[sample(input$ipodreps, 1, replace = FALSE),]))
+              c(1 - mean(matrix[sample(input$Playlistreps, 1, replace = FALSE),]), mean(matrix[sample(input$Playlistreps, 1, replace = FALSE),]))
             barplot(
               count,
-              main = "Histogram of values in a single sample",
+              main = "Single Sample Histogram",
               xlab = "Hip-hop vs Other music",
               ylab = "probability",
               col = 'lightblue',
               cex.lab = 1.5,
               cex.axis = 1.5,
-              cex.main = 1.25,
+              cex.main = 1.5,
               cex.sub = 1.5,
               names.arg = c("Hip-hop", "Other music")
             )
@@ -1636,13 +1635,13 @@ shinyServer(function(session, input, output) {
               c(1 - mean(matrix[sample(50, 1, replace = FALSE),]), mean(matrix[sample(10, 1, replace = FALSE),]))
             barplot(
               count,
-              main = "Histogram of values in a single sample",
+              main = "Single Sample Histogram",
               xlab = "Hip-hop vs Other music",
               ylab = "probability",
               col = 'lightblue',
               cex.lab = 1.5,
               cex.axis = 1.5,
-              cex.main = 1.25,
+              cex.main = 1.5,
               cex.sub = 1.5,
               names.arg = c("Hip-hop", "Other music")
             )
@@ -1659,12 +1658,12 @@ shinyServer(function(session, input, output) {
         output$Plot10 <- renderPlot({
           if (input$s1 == 0) {
             vector <- Jazzdata()
-            if (input$ipodreps <= 80) {
+            if (input$Playlistreps <= 80) {
               hist(
                 vector,
                 main = "All Samples Histogram",
                 col = "lightblue",
-                breaks = input$ipodreps,
+                breaks = input$Playlistreps,
                 freq = FALSE,
                 cex.lab = 1.5,
                 cex.axis = 1.5,
@@ -1706,21 +1705,21 @@ shinyServer(function(session, input, output) {
             # tmphist <- hist(vector, plot = FALSE)
             # highestCount <- max(tmphist$density)
             # tmp <- dnorm(vector, mean = mean(vector), sd = sd(vector))
-            n <- input$ipodsize
+            n <- input$Playlistsize
             # x <- seq(0, n, by = 1)
             vector <-
-              rbinom(input$ipodreps * n,
+              rbinom(input$Playlistreps * n,
                      size = n,
                      prob = input$s1 / sum(songs()))
             vector_mean <- c()
-            for (i in 1:input$ipodreps * n) {
+            for (i in 1:input$Playlistreps * n) {
               vector_mean <- append(vector_mean, vector[i] / n)
             }
             hist(
               vector_mean,
               main = "All Samples Histogram",
               col = "lightblue",
-              #breaks = input$ipodsize,
+              #breaks = input$Playlistsize,
               #cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
               prob = TRUE,
               xlab = "sample average"
@@ -1746,12 +1745,12 @@ shinyServer(function(session, input, output) {
         output$Plot20 <- renderPlot({
           if (input$s2 == 0) {
             vector <- Rockdata()
-            if (input$ipodreps <= 80) {
+            if (input$Playlistreps <= 80) {
               hist(
                 vector,
                 main = "All Samples Histogram",
                 col = "lightblue",
-                breaks = input$ipodreps,
+                breaks = input$Playlistreps,
                 freq = FALSE,
                 cex.lab = 1.5,
                 cex.axis = 1.5,
@@ -1793,8 +1792,8 @@ shinyServer(function(session, input, output) {
           #   tmphist <- hist(vector, plot = FALSE)
           #   highestCount <- max(tmphist$density)
           #   tmp <- dnorm(vector, mean = mean(vector), sd = sd(vector))
-          #   if(input$ipodreps <= 100){
-          #     hist(vector, main="All Samples Histogram", col="lightblue", breaks = input$ipodreps,
+          #   if(input$Playlistreps <= 100){
+          #     hist(vector, main="All Samples Histogram", col="lightblue", breaks = input$Playlistreps,
           #          freq = FALSE, cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
           #          xlab = "sample average",ylim = c(0, max(tmp, highestCount)))
           #     curve(dnorm(x, mean = mean(vector), sd = sd(vector)), col="blue", lwd=3, add=TRUE)
@@ -1812,21 +1811,21 @@ shinyServer(function(session, input, output) {
             # tmphist <- hist(vector, plot = FALSE)
             # highestCount <- max(tmphist$density)
             # tmp <- dnorm(vector, mean = mean(vector), sd = sd(vector))
-            n <- input$ipodsize
+            n <- input$Playlistsize
             # x <- seq(0, n, by = 1)
             vector <-
-              rbinom(input$ipodreps * n,
+              rbinom(input$Playlistreps * n,
                      size = n,
                      prob = input$s2 / sum(songs()))
             vector_mean <- c()
-            for (i in 1:input$ipodreps * n) {
+            for (i in 1:input$Playlistreps * n) {
               vector_mean <- append(vector_mean, vector[i] / n)
             }
             hist(
               vector_mean,
               main = "All Samples Histogram",
               col = "lightblue",
-              # breaks = input$ipodreps,
+              # breaks = input$Playlistreps,
               #cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
               prob = TRUE,
               xlab = "sample average"
@@ -1848,12 +1847,12 @@ shinyServer(function(session, input, output) {
         output$Plot30 <- renderPlot({
           if (input$s3 == 0) {
             vector <- Countrydata()
-            if (input$ipodreps <= 80) {
+            if (input$Playlistreps <= 80) {
               hist(
                 vector,
                 main = "All Samples Histogram",
                 col = "lightblue",
-                breaks = input$ipodreps,
+                breaks = input$Playlistreps,
                 freq = FALSE,
                 cex.lab = 1.5,
                 cex.axis = 1.5,
@@ -1895,8 +1894,8 @@ shinyServer(function(session, input, output) {
           #   tmphist <- hist(vector, plot = FALSE)
           #   highestCount <- max(tmphist$density)
           #   tmp <- dnorm(vector, mean = mean(vector), sd = sd(vector))
-          #   if(input$ipodreps <= 100){
-          #     hist(vector, main="All Samples Histogram", col="lightblue", breaks = input$ipodreps,
+          #   if(input$Playlistreps <= 100){
+          #     hist(vector, main="All Samples Histogram", col="lightblue", breaks = input$Playlistreps,
           #          freq = FALSE, cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
           #          xlab = "sample average",ylim = c(0, max(tmp, highestCount)))
           #     curve(dnorm(x, mean = mean(vector), sd = sd(vector)), col="blue", lwd=3, add=TRUE)
@@ -1913,21 +1912,21 @@ shinyServer(function(session, input, output) {
             # tmphist <- hist(vector, plot = FALSE)
             # highestCount <- max(tmphist$density)
             # tmp <- dnorm(vector, mean = mean(vector), sd = sd(vector))
-            n <- input$ipodsize
+            n <- input$Playlistsize
             # x <- seq(0, n, by = 1)
             vector <-
-              rbinom(input$ipodreps * n,
+              rbinom(input$Playlistreps * n,
                      size = n,
                      prob = input$s3 / sum(songs()))
             vector_mean <- c()
-            for (i in 1:input$ipodreps * n) {
+            for (i in 1:input$Playlistreps * n) {
               vector_mean <- append(vector_mean, vector[i] / n)
             }
             hist(
               vector_mean,
               main = "All Samples Histogram",
               col = "lightblue",
-              # breaks = input$ipodreps,
+              # breaks = input$Playlistreps,
               #cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
               prob = TRUE,
               xlab = "sample average"
@@ -1949,12 +1948,12 @@ shinyServer(function(session, input, output) {
         output$Plot40 <- renderPlot({
           if (input$s4 == 0) {
             vector <- Hiphopdata()
-            if (input$ipodreps <= 80) {
+            if (input$Playlistreps <= 80) {
               hist(
                 vector,
                 main = "All Samples Histogram",
                 col = "lightblue",
-                breaks = input$ipodreps,
+                breaks = input$Playlistreps,
                 freq = FALSE,
                 cex.lab = 1.5,
                 cex.axis = 1.5,
@@ -1995,8 +1994,8 @@ shinyServer(function(session, input, output) {
           #   tmphist <- hist(vector, plot = FALSE)
           #   highestCount <- max(tmphist$density)
           #   tmp <- dnorm(vector, mean = mean(vector), sd = sd(vector))
-          #   if(input$ipodreps <= 100){
-          #     hist(vector, main="All Samples Histogram", col="lightblue", breaks = input$ipodreps,
+          #   if(input$Playlistreps <= 100){
+          #     hist(vector, main="All Samples Histogram", col="lightblue", breaks = input$Playlistreps,
           #          freq = FALSE, cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
           #          xlab = "sample average",ylim = c(0, max(tmp, highestCount)))
           #     curve(dnorm(x, mean = mean(vector), sd = sd(vector)), col="blue", lwd=3, add=TRUE)
@@ -2014,21 +2013,21 @@ shinyServer(function(session, input, output) {
             # highestCount <- max(tmphist$density)
             # tmp <- dnorm(vector, mean = mean(vector), sd = sd(vector))
             
-            n <- input$ipodsize
+            n <- input$Playlistsize
             # x <- seq(0, n, by = 1)
             vector <-
-              rbinom(input$ipodreps * n,
+              rbinom(input$Playlistreps * n,
                      size = n,
                      prob = input$s4 / sum(songs()))
             vector_mean <- c()
-            for (i in 1:input$ipodreps * n) {
+            for (i in 1:input$Playlistreps * n) {
               vector_mean <- append(vector_mean, vector[i] / n)
             }
             hist(
               vector_mean,
               main = "All Samples Histogram",
               col = "lightblue",
-              # breaks = input$ipodreps,
+              # breaks = input$Playlistreps,
               #cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5,
               prob = TRUE,
               xlab = "sample average"

@@ -11,9 +11,6 @@ shinyUI(dashboardPage(
     titleWidth=250,
     tags$li(class = "dropdown", actionLink("info", icon("info"))),
     tags$li(class = "dropdown",
-            tags$a(href='https://github.com/EducationShinyAppTeam/BOAST',
-                   icon("github"))),
-    tags$li(class = "dropdown",
             tags$a(href='https://shinyapps.science.psu.edu/',
                    icon("home")))
   ),
@@ -52,7 +49,7 @@ shinyUI(dashboardPage(
           tags$ol(
             tags$li(
               "Pick a population from one of the continuous types (left-skewed; right-skewed; symmetric; or bimodal) or one of the
-                                 discrete examples (rolls of an astragalus; random songs from an iPod shuffle; or accident occurrence)."
+                                 discrete examples (rolls of an astragalus; random songs from an Playlist shuffle; or accident occurrence)."
             ),
             
             
@@ -104,7 +101,7 @@ shinyUI(dashboardPage(
         #"https://online.stat.psu.edu/stat200/lesson/2/2.2/2.2.3"
         
         tags$ul(
-          tags$li("This app uses four distributions: right (positive) skewed, left (negative) skewed, symmetric, and bimodal.
+          tags$li("This app uses four continuous distributions: right (positive) skewed, left (negative) skewed, symmetric, and bimodal.
           While in depth understanding of these distributions is not required, you may wish to review this ",
                   tags$a(href="https://online.stat.psu.edu/stat100/lesson/3/3.2#graphshapes", "Stat 100 Table of Graph Shapes"),
                   ".",),
@@ -131,7 +128,8 @@ shinyUI(dashboardPage(
         p("In this section, you will have the chance to explore the Central Limit Theorem. 
           To do so, first choose a population to sample from, a number of samples to take, 
           and repetitions. Then observe the graphs of Histogram of values in a single sample
-          and all sample histogram to see the CLT."),
+          and the histogram of the statistics from all of the repetitions to see how the normal
+          approximation compares to this estimate of the sampling distribution."),
         
         sidebarLayout(
           sidebarPanel(
@@ -147,10 +145,10 @@ shinyUI(dashboardPage(
                     "Right-skewed" = "rightskewed",
                     "Symmetric" = "symmetric",
                     "Bimodal" = "bimodal",
-                    "Astragalus" =
+                    "Astragalus (Bone Die)" =
                       "astragalus",
-                    "IPod Shuffle" =
-                      "ipodshuffle",
+                    "Playlist" =
+                      "Playlistshuffle",
                     "Accident Rate" = "poisson"
                   )
                 ),
@@ -276,27 +274,19 @@ shinyUI(dashboardPage(
                                  "color: #fff; background-color: #337ab7; border-color: #2e6da4")
                 ),
                 
-                #iPod shuffle
+                #Playlist shuffle
                 conditionalPanel(
-                  condition = "input.popDist == 'ipodshuffle'",
+                  condition = "input.popDist == 'Playlistshuffle'",
                   column(
                     width = 7,
                     offset = 0,
-                    radioButtons(
-                      "ptype",
-                      "Category to follow:",
-                      list("Jazz",
-                           "Rock",
-                           "Country",
-                           "Hip-hop"),
-                      selected = "Jazz"
-                    ),
-                    
+                    p("Number of songs:"),
                     column(
                       4,
                       offset = 0,
+                   
                       
-                      numericInput(
+                     numericInput(
                         "s1",
                         "Jazz",
                         1,
@@ -330,20 +320,6 @@ shinyUI(dashboardPage(
                         step = 1
                       )
                     )
-                  ),
-                  column(
-                    width = 5,
-                    helpText('P of Jazz'),
-                    verbatimTextOutput("Jazz_percent"),
-                    helpText('P of Rock '),
-                    verbatimTextOutput("Rock_percent")
-                  ),
-                  column(
-                    width = 5,
-                    helpText('P of Country'),
-                    verbatimTextOutput("Country_percent"),
-                    helpText('P of Hip-hop'),
-                    verbatimTextOutput("Hiphop_percent")
                   )
                 )
                 
@@ -362,7 +338,7 @@ shinyUI(dashboardPage(
                   ),
                   sliderInput(
                     "leftreps",
-                    "# of reps",
+                    "Number of reps",
                     min = 1,
                     max = 5000,
                     value = 1000
@@ -381,7 +357,7 @@ shinyUI(dashboardPage(
                   
                   sliderInput(
                     "rightreps",
-                    "# of reps",
+                    "Number of reps",
                     min = 1,
                     max = 5000,
                     value = 1000
@@ -401,7 +377,7 @@ shinyUI(dashboardPage(
                   
                   sliderInput(
                     "symreps",
-                    "# of reps",
+                    "Number of reps",
                     min = 1,
                     max = 5000,
                     value = 1000
@@ -420,7 +396,7 @@ shinyUI(dashboardPage(
                   
                   sliderInput(
                     "asreps",
-                    "# of reps",
+                    "Number of reps",
                     min = 1,
                     max = 5000,
                     value = 1000
@@ -440,7 +416,7 @@ shinyUI(dashboardPage(
                   #choose the number of sample means
                   sliderInput(
                     "bireps",
-                    "# of reps",
+                    "Number of reps",
                     min = 1,
                     max = 5000,
                     value = 1000
@@ -459,7 +435,7 @@ shinyUI(dashboardPage(
                   #choose the number of sample means
                   sliderInput(
                     "poreps",
-                    "# of reps",
+                    "Number of reps",
                     min = 1,
                     max = 5000,
                     value = 1000
@@ -467,9 +443,9 @@ shinyUI(dashboardPage(
                   
                 ),
                 conditionalPanel(
-                  condition = "input.popDist == 'ipodshuffle'",
+                  condition = "input.popDist == 'Playlistshuffle'",
                   sliderInput(
-                    "ipodsize",
+                    "Playlistsize",
                     "sample size (n)",
                     min = 1,
                     max = 50,
@@ -477,14 +453,23 @@ shinyUI(dashboardPage(
                   ),
                   #choose the number of sample means
                   sliderInput(
-                    "ipodreps",
-                    "# of reps",
+                    "Playlistreps",
+                    "Number of reps",
                     min = 1,
                     max = 5000,
                     value = 1000
                   ),
                   actionButton("new7", "show one of the samples", icon("retweet"), style =
                                  "color: #fff; background-color: #337ab7; border-color: #2e6da4")
+                ),
+                radioButtons(
+                  "ptype",
+                  "Genre to track:",
+                  list("Jazz",
+                       "Rock",
+                       "Country",
+                       "Hip-hop"),
+                  selected = "Jazz"
                 )
               )
             )
@@ -505,7 +490,7 @@ shinyUI(dashboardPage(
             conditionalPanel(condition = "input.popDist == 'poisson'",
                              plotOutput('poissonpop')),
             conditionalPanel(
-              condition = "input.popDist == 'ipodshuffle'",
+              condition = "input.popDist == 'Playlistshuffle'",
               conditionalPanel(condition =
                                  "input.ptype== 'Jazz'",
                                plotOutput("Plot1")),
@@ -539,7 +524,7 @@ shinyUI(dashboardPage(
             conditionalPanel(condition = "input.popDist == 'poisson'",
                              plotOutput('plotpoisson1')),
             conditionalPanel(
-              condition = "input.popDist =='ipodshuffle'",
+              condition = "input.popDist =='Playlistshuffle'",
               conditionalPanel(condition = "input.ptype== 'Jazz'",
                                plotOutput("Plot01")),
               conditionalPanel(condition = "input.ptype=='Rock' ",
@@ -607,7 +592,7 @@ shinyUI(dashboardPage(
               placement = "top"
             ),
             conditionalPanel(
-              condition = "input.popDist =='ipodshuffle'",
+              condition = "input.popDist =='Playlistshuffle'",
               conditionalPanel(condition = "input.ptype== 'Jazz'",
                                plotOutput("Plot10")),
               bsPopover(
@@ -660,22 +645,22 @@ shinyUI(dashboardPage(
         h2("References"),
         p(
           class = "hangingindent",
-          "Winston Chang, Joe Cheng, JJ Allaire, Yihui Xie and Jonathan McPherson (2020). shiny: Web Application Framework for R. R
+          "Chang,W., Cheng,J.,Allaire.JJ , Xie,Y. and McPherson,J. (2020). shiny: Web Application Framework for R. R
   package version 1.4.0.2. https://CRAN.R-project.org/package=shiny"
         ),
         p(
           class = "hangingindent",
-          "Winston Chang and Barbara Borges Ribeiro (2018). shinydashboard: Create Dashboards with 'Shiny'. R package version 0.7.1.
+          "Chang,W. and Ribeiro,B.B. (2018). shinydashboard: Create Dashboards with 'Shiny'. R package version 0.7.1.
   https://CRAN.R-project.org/package=shinydashboard"
         ),
         p(
           class = "hangingindent",
-          "DEric Bailey (2015). shinyBS: Twitter Bootstrap Components for Shiny. R package version 0.61.
+          "Bailey,D. (2015). shinyBS: Twitter Bootstrap Components for Shiny. R package version 0.61.
   https://CRAN.R-project.org/package=shinyBS"
         ),
         p(
           class = "hangingindent",
-          " Victor Perrier, Fanny Meyer and David Granjon (2020). shinyWidgets: Custom Inputs Widgets for Shiny. R package version
+          " Perrier,V. , Meyer,F. and Granjon,D. (2020). shinyWidgets: Custom Inputs Widgets for Shiny. R package version
   0.5.2. https://CRAN.R-project.org/package=shinyWidgets"
         ),
         p(
@@ -685,7 +670,7 @@ shinyUI(dashboardPage(
         ),
         p(
           class = "hangingindent",
-          " H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016."
+          " Wickham,H. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016."
         )
         ,
         p(
@@ -695,12 +680,12 @@ shinyUI(dashboardPage(
         ),
         p(
           class = "hangingindent",
-          "Dennis D. Boos and Douglas Nychka (2012). Rlab: Functions and Datasets Required for ST370 class. R package version 2.15.1.
+          "Boos,D.D. and Nychka,D. (2012). Rlab: Functions and Datasets Required for ST370 class. R package version 2.15.1.
   https://CRAN.R-project.org/package=Rlab"
         ),
         p(
           class = "hangingindent",
-          "Hadley Wickham, Romain François, Lionel Henry and Kirill Müller (2020). dplyr: A Grammar of Data Manipulation. R package
+          "Wickham,H., François,H., Henry,L. and Müller,K. (2020). dplyr: A Grammar of Data Manipulation. R package
   version 0.8.5. https://CRAN.R-project.org/package=dplyr"
         ),
         p(
