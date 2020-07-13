@@ -460,17 +460,19 @@ shinyUI(dashboardPage(
                     value = 1000
                   ),
                   actionButton("new7", "show one of the samples", icon("retweet"), style =
-                                 "color: #fff; background-color: #337ab7; border-color: #2e6da4")
-                ),
-                radioButtons(
-                  "ptype",
-                  "Genre to track:",
-                  list("Jazz",
-                       "Rock",
-                       "Country",
-                       "Hip-hop"),
-                  selected = "Jazz"
-                )
+                                 "color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+                  radioButtons(
+                    "ptype",
+                    "Genre to track:",
+                    list("Jazz",
+                         "Rock",
+                         "Country",
+                         "Hip-hop"),
+                    selected = "Jazz"
+                  )
+                
+                  ),
+            
               )
             )
           ),

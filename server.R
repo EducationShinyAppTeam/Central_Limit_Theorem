@@ -41,6 +41,7 @@ shinyServer(function(session, input, output) {
         axis.title = element_text(size = 18),
         panel.background = element_rect(fill = "white", color = "black")
       )
+    
     # For case in symmetric where path is 1 causing "box" shape
     if (path == 1) {
       plot <- plot +
@@ -65,7 +66,7 @@ shinyServer(function(session, input, output) {
   }
   #Make the make bar plot function
   makeBarPlot <-
-    function(xlab, data, levels = as.character(data$x)) {
+    function(xlab, ggtitle2, data, levels = as.character(data$x)) {
       plot <-
         ggplot(aes(x = factor(x, levels = levels), y = y), data = data) +
         geom_bar(stat = "identity",
@@ -74,7 +75,7 @@ shinyServer(function(session, input, output) {
         ylim(c(0, max(data$y) + .1 * max(data$y))) +
         xlab(xlab) +
         ylab("Probability") +
-        ggtitle("Population Graph") +
+        ggtitle(ggtitle2) +
         theme(
           axis.text = element_text(size = 18),
           plot.title = element_text(size = 18, face = "bold"),
@@ -85,6 +86,32 @@ shinyServer(function(session, input, output) {
       
       plot
     }
+  #Make the make bar plot function
+  makeBarPlot2 <-
+    function(xlab, ggtitle2, data, levels = as.character(data$x)) {
+      plot <-
+        ggplot(aes(x = factor(x, levels = levels), y = y), data = data) +
+        geom_bar(stat = "identity",
+                 fill = "lightblue",
+                 col = "black") +
+        ylim(c(0, max(data$y) + .1 * max(data$y))) +
+        xlab(xlab) +
+        ylab("Probability") +
+        ggtitle(ggtitle2) +
+        theme(
+          axis.text = element_text(size = 18),
+          plot.title = element_text(size = 18, face = "bold"),
+          axis.title = element_text(size = 18),
+          panel.background = element_rect(fill = "white", color = "black")
+        ) +
+        #scale_x_discrete(drop = FALSE)+
+        ggplot2::stat_function(fun=dnorm,args=list(mean=7, sd=sqrt(1.45/input$assize)))
+ plot
+   
+  
+    }
+  
+
   #list all input value
   observeEvent({
     # choose population type
@@ -825,7 +852,7 @@ shinyServer(function(session, input, output) {
               cex.main = 1.5,
               cex.sub = 1.5,
               xlab = "sample average",
-              ylim = c(0, max(tmp, highestCount) + 0.25),
+          
               xlim = c(0, 5)
               
             )
@@ -848,7 +875,7 @@ shinyServer(function(session, input, output) {
               cex.main = 1.5,
               cex.sub = 1.5,
               xlab = "sample average",
-              ylim = c(0, max(tmp, highestCount) + 0.25),
+            
               xlim = c(0, 5)
               
             )
@@ -887,7 +914,7 @@ shinyServer(function(session, input, output) {
             (input$poissonmean ^ data$x) * exp(-input$poissonmean) / factorial(data$x) # Get y vals for x's
           data <-
             rbind(data[1:2,], filter(data[-c(1, 2), ], y > .0005)) # Filter based on probability
-          makeBarPlot(xlab = "Number of accidents", data = data)
+          makeBarPlot(xlab = "Number of accidents", ggtitle="Population Graph",data = data)
         },
         cacheKeyExpr = {
           list(input$poissonmean)
@@ -1025,143 +1052,53 @@ shinyServer(function(session, input, output) {
         
         # Population of Astragalus
         output$pop <- renderPlot({
-          a = min(die())
-          b = max(die())
-          foo <- hist(
-            x = die() + 0.001,
-            breaks = b - a,
-            probability = T,
-            xaxt = "n",
-            cex.lab = 1.5,
-            cex.axis = 1.5,
-            cex.main = 1.5,
-            cex.sub = 1.5,
-            col = 'lightblue',
-            xlab = "# on roll of Astragalus",
-            ylab = "probability",
-            main = "Population Graph"
-          )
-          axis(side = 1,
-               at = foo$mids,
-               labels = seq(a, b))
-          
+          data<-data.frame(x=c(1,3,4,6), y=c(.1,.4,.4,.1))
+          makeBarPlot(xlab= "Number on roll of astragalus", ggtitle2="Pupulation Graph",data= data, levels=1:6)
         })
         
-        
-        
-        # Matrix for first 50 reps of data
-        firstfifData6 <- reactive(matrix(
-          sample(die(), 
-                 50 * input$assize,
-                 replace = TRUE),
-          nrow = 50,
-          ncol = input$assize
-        ))
-        
-        
-        # Write the mean of first 50 data into vector
-        firstfif6 <- reactive({
-          matrix <- firstfifData6()
-          matrix.means <- matrix(0, nrow = 50, ncol = input$assize)
-          for (i in 1:50) {
-            for (j in 1:input$assize) {
-              matrix.means[i, j] = mean(matrix[i, 1:j])
-            }
-          }
-          
-          fifmeans = as.vector(matrix.means)
-          return(fifmeans)
-        })
-        
-        # Merge the first 50 means with the rest of data
-        data6 <- reactive({
-          datameans = firstfif6()
-          for (i in 1:(input$asreps - 50)) {
-            datameans = append(datameans, mean(sample(die(), input$assize,
-                                                      replace = TRUE)))
-          }
-          return(datameans)
-        })
-        
+
         
         
         # One Sample Histogram
         output$line2 <- renderPlot({
-          matrix <- firstfifData6()
           input$new6
-          if (input$asreps <= 50) {
-            hist(
-              matrix[sample(input$asreps, 1, replace = FALSE),],
-              freq = FALSE,
-              main = "Single Sample Histogram",
-              col = "lightblue",
-              cex.lab = 1.5,
-              cex.axis = 1.5,
-              cex.main = 1.5,
-              cex.sub = 1.5,
-              xlab = "individual value"
-            )
-          }
-          else{
-            hist(
-              matrix[sample(50, 1, replace = FALSE),],
-              freq = FALSE,
-              main = "Single Sample Histogram",
-              col = "lightblue",
-              cex.lab = 1.5,
-              cex.axis = 1.5,
-              cex.main = 1.5,
-              cex.sub = 1.5,
-              xlab = "individual value"
-            )
-          }
+          numbers= sample(x=c(1,3,4,6),size=input$assize,replace=TRUE,prob=c(.1,.4,.4,.1))
+          c1=sum(numbers==1)/input$assize
+          c2=sum(numbers==3)/input$assize
+          c3=sum(numbers==4)/input$assize
+          c4=sum(numbers==6)/input$assize
+          firstfifData6=data.frame(x=c(1,3,4,6), y=c(c1,c2,c3,c4))
+          makeBarPlot(xlab= "individual value",ggtitle2="Single Sample Histogram",data = firstfifData6,levels=1:6)
           
+         
         })
+        
+
         # All Sample Histogram
         output$line1 <- renderPlot({
-          vector <- data6()
-          if (input$asreps <= 80) {
-            hist(
-              vector,
-              main = "All Samples Histogram",
-              col = "lightblue",
-              breaks = input$asreps,
-              freq = FALSE,
-              cex.lab = 1.5,
-              cex.axis = 1.5,
-              cex.main = 1.5,
-              cex.sub = 1.5,
-              xlab = "sample average",
-              
-            )
-            curve(
-              dnorm(x,  mean = mean(vector), sd = sd(vector)),
-              col = "blue",
-              lwd = 3,
-              add = TRUE
-            )
+          N <- input$asreps
+          res <- vector("numeric",N)
+          res
+          for(i in 1:input$asreps){
+            numbers=sample(x=c(1,3,4,6),size=input$assize,replace=TRUE,prob=c(.1,.4,.4,.1))
+            c1=sum(numbers==1)/input$assize
+            c2=sum(numbers==3)/input$assize
+            c3=sum(numbers==4)/input$assize
+            c4=sum(numbers==6)/input$assize
+            c5=c1+c2*3+c3*4+c4*6
+            res[i] <- c5
+            
           }
-          else{
-            hist(
-              vector,
-              main = "All Samples Histogram",
-              col = "lightblue",
-              breaks = 80,
-              freq = FALSE,
-              cex.lab = 1.5,
-              cex.axis = 1.5,
-              cex.main = 1.5,
-              cex.sub = 1.5,
-              xlab = "sample average",
-              
-            )
-            curve(
-              dnorm(x,  mean = mean(vector), sd = sd(vector)),
-              col = "blue",
-              lwd = 3,
-              add = TRUE
-            )
-          }
+          
+          k <- data.frame(table(res))
+          z <- data.frame(x=k$res,y=k$Freq/input$asreps)
+          makeBarPlot2(xlab='sample average',ggtitle='All Sample Histogram',data=z)
+         
+      
+          
+   
+          
+          
           
         })
         
@@ -1212,7 +1149,7 @@ shinyServer(function(session, input, output) {
         output$Plot1 <- renderPlot({
           pjazz <- input$s1 / sum(songs())
           count <-
-            c(pjazz * input$Playlistsize, (1 - pjazz) * input$Playlistsize)
+            c(pjazz , (1 - pjazz))
           barplot(
             count,
             main = "Population Graph",
@@ -1237,7 +1174,7 @@ shinyServer(function(session, input, output) {
         output$Plot2 <- renderPlot({
           prock <- input$s2 / sum(songs())
           count <-
-            c(prock * input$Playlistsize, (1 - prock) * input$Playlistsize)
+            c(prock , (1 - prock))
           barplot(
             count,
             main = "Population Graph",
@@ -1262,7 +1199,7 @@ shinyServer(function(session, input, output) {
         output$Plot3 <- renderPlot({
           pcountry <- input$s3 / sum(songs())
           count <-
-            c(pcountry * input$Playlistsize, (1 - pcountry) * input$Playlistsize)
+            c(pcountry , (1 - pcountry))
           barplot(
             count,
             main = "Population Graph",
@@ -1287,7 +1224,7 @@ shinyServer(function(session, input, output) {
         output$Plot4 <- renderPlot({
           phiphop <- input$s4 / sum(songs())
           count <-
-            c(phiphop * input$Playlistsize, (1 - phiphop) * input$Playlistsize)
+            c(phiphop , (1 - phiphop) )
           barplot(
             count,
             main = "Population Graph",
