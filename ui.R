@@ -293,7 +293,7 @@ shinyUI(dashboardPage(
                         min = 0,
                         max = 100,
                         step = 1,
-                        width = '10%'
+                        width = '75px'
                       ),
                       numericInput(
                         "s2",
@@ -301,7 +301,8 @@ shinyUI(dashboardPage(
                         1,
                         min = 0,
                         max = 200,
-                        step = 1
+                        step = 1,
+                        width = '75px'
                       ),
                       numericInput(
                         "s3",
@@ -309,7 +310,8 @@ shinyUI(dashboardPage(
                         1,
                         min = 0,
                         max = 200,
-                        step = 1
+                        step = 1,
+                        width = '75px'
                       ),
                       numericInput(
                         "s4",
@@ -317,7 +319,8 @@ shinyUI(dashboardPage(
                         1,
                         min = 0,
                         max = 200,
-                        step = 1
+                        step = 1,
+                        width = '75px'
                       )
                     )
                   )

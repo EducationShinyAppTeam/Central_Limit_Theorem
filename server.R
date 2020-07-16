@@ -86,30 +86,7 @@ shinyServer(function(session, input, output) {
       
       plot
     }
-  #Make the make bar plot function
-  makeBarPlot2 <-
-    function(xlab, ggtitle2, data, levels = as.character(data$x)) {
-      plot <-
-        ggplot(aes(x = factor(x, levels = levels), y = y), data = data) +
-        geom_bar(stat = "identity",
-                 fill = "lightblue",
-                 col = "black") +
-        ylim(c(0, max(data$y) + .1 * max(data$y))) +
-        xlab(xlab) +
-        ylab("Probability") +
-        ggtitle(ggtitle2) +
-        theme(
-          axis.text = element_text(size = 18),
-          plot.title = element_text(size = 18, face = "bold"),
-          axis.title = element_text(size = 18),
-          panel.background = element_rect(fill = "white", color = "black")
-        ) +
-        #scale_x_discrete(drop = FALSE)+
-        ggplot2::stat_function(fun=dnorm,args=list(mean=7, sd=sqrt(1.45/input$assize)))
- plot
-   
-  
-    }
+
   
 
   #list all input value
@@ -1058,20 +1035,7 @@ shinyServer(function(session, input, output) {
         
 
         
-        
-        # One Sample Histogram
-        output$line2 <- renderPlot({
-          input$new6
-          numbers= sample(x=c(1,3,4,6),size=input$assize,replace=TRUE,prob=c(.1,.4,.4,.1))
-          c1=sum(numbers==1)/input$assize
-          c2=sum(numbers==3)/input$assize
-          c3=sum(numbers==4)/input$assize
-          c4=sum(numbers==6)/input$assize
-          firstfifData6=data.frame(x=c(1,3,4,6), y=c(c1,c2,c3,c4))
-          makeBarPlot(xlab= "individual value",ggtitle2="Single Sample Histogram",data = firstfifData6,levels=1:6)
-          
-         
-        })
+    
         
 
         # All Sample Histogram
@@ -1090,14 +1054,45 @@ shinyServer(function(session, input, output) {
             
           }
           
-          k <- data.frame(table(res))
-          z <- data.frame(x=k$res,y=k$Freq/input$asreps)
-          makeBarPlot2(xlab='sample average',ggtitle='All Sample Histogram',data=z)
-         
-      
+          res <- data.frame(gg = res)
+          x <- seq(1,6,length.out=50)
+          curv <- with(res,data.frame(x=x,y=dnorm(x, mean(gg), sd(gg))))
+          
+          
+          
+          
+          p<-ggplot(data=res,aes(x=gg)) + 
+            geom_histogram(aes(y =..density..),
+                           binwidth = 0.1,
+                           fill = "lightblue",
+                           col = "black",
+                        ) + xlab("sample average")+
+            ggtitle("All Samples Histogram") +
+            theme(
+              axis.text = element_text(size = 18),
+              plot.title = element_text(size = 18, face = "bold"),
+              axis.title = element_text(size = 18),
+              panel.background = element_rect(fill = "white", color = "black")
+            )+geom_line(data = curv, aes(x = x, y = y), color = "blue",lwd = 1)
+          p
+          
           
    
           
+          
+          
+        })
+        
+        # One Sample Histogram
+        output$line2 <- renderPlot({
+          input$new6
+          numbers= sample(x=c(1,3,4,6),size=input$assize,replace=TRUE,prob=c(.1,.4,.4,.1))
+          c1=sum(numbers==1)/input$assize
+          c2=sum(numbers==3)/input$assize
+          c3=sum(numbers==4)/input$assize
+          c4=sum(numbers==6)/input$assize
+          firstfifData6=data.frame(x=c(1,3,4,6), y=c(c1,c2,c3,c4))
+          makeBarPlot(xlab= "individual value",ggtitle2="Single Sample Histogram",data = firstfifData6,levels=1:6)
           
           
         })
@@ -1161,7 +1156,7 @@ shinyServer(function(session, input, output) {
             cex.axis = 1.5,
             cex.main = 1.5,
             cex.sub = 1.5,
-            names.arg = c("Jazz", "Other music")
+            names.arg = c("Jazz(1)", "Other music(0)")
           )
           # n <- input$Playlistsize
           # x <- seq(0, n, by = 1)
@@ -1186,7 +1181,7 @@ shinyServer(function(session, input, output) {
             cex.axis = 1.5,
             cex.main = 1.5,
             cex.sub = 1.5,
-            names.arg = c("Rock", "Other music")
+            names.arg = c("Rock(1)", "Other music(0)")
           )
           # n <- input$Playlistsize
           # x <- seq(0, n, by = 1)
@@ -1211,7 +1206,7 @@ shinyServer(function(session, input, output) {
             cex.axis = 1.5,
             cex.main = 1.5,
             cex.sub = 1.5,
-            names.arg = c("Country", "Other music")
+            names.arg = c("Country(1)", "Other music(0)")
           )
           # n <- input$Playlistsize
           # x <- seq(0, n, by = 1)
@@ -1236,7 +1231,7 @@ shinyServer(function(session, input, output) {
             cex.axis = 1.5,
             cex.main = 1.5,
             cex.sub = 1.5,
-            names.arg = c("Hip-hop", "Other music")
+            names.arg = c("Hip-hop(1)", "Other music(0)")
           )
           # n <- input$Playlistsize
           # x <- seq(0, n, by = 1)
