@@ -30,58 +30,48 @@ shinyUI(dashboardPage(
   ),
   dashboardBody(
     tags$head(
-      tags$link(rel = "stylesheet", type = "text/css", href = "https://educationshinyappteam.github.io/Style_Guide/theme/boast.css")
+      tags$link(rel = "stylesheet", 
+                type = "text/css", 
+                href = "https://educationshinyappteam.github.io/Style_Guide/theme/boast.css")
     ),
     tabItems(
       tabItem(
         tabName = "Overview",
-        # tags$a(href='http://stat.psu.edu/',tags$img(src='PS-HOR-RGB-2C.png', align = "left", width = 180)),
         fluidPage(
-          
           h1("Central Limit Theorem"),
-          p(
-            "This app is designed to examine the Central Limit Theorem under different population distributions and sample sizes."
-            
-          ),
-          p("The Central Limit Theorem tells us when the sample size increases, the all sample histogram will become normal distribution."),
+          p("This app is designed to examine the Central Limit Theorem under 
+            different population distributions and sample sizes."),
+          p("The Central Limit Theorem tells us when the sample size increases, 
+            the all sample histogram will become normal distribution."),
           br(),
           h2("Instructions"),
           tags$ol(
             tags$li(
-              "Pick a population from one of the continuous types (left-skewed; right-skewed; symmetric; or bimodal) or one of the
-                                 discrete examples (rolls of an astragalus; random songs from an Playlist shuffle; or accident occurrence)."
-            ),
-            
-            
-            tags$li(
-              "Use the sliders to adjust the parameters of the population model you chosen."
-            ),
-            
-            
-            tags$li(
-              "Use the sliders to decide the sample size (n) you want for each sample and how many reps you will repeat the process
-                                 of taking samples from the population (calculating \\(\\bar{x}\\) for each)."
-            ),
-            
-            
-            tags$li("Use the button to see one of the individual samples chossen."),
-            
-            
-            tags$li(
-              "Observe the histograms of one sample and for \\(\\bar{x}\\) from all samples."
-            ),
+              "Pick a population from one of the continuous types (left-skewed; 
+              right-skewed; symmetric; or bimodal) or one of the discrete 
+              examples (rolls of an astragalus; random songs from an Playlist 
+              shuffle; or accident occurrence)."),
+            tags$li("Use the sliders to adjust the parameters of the population 
+                    model you chosen."),
+            tags$li("Use the sliders to decide the sample size (n) you want for 
+                    each sample and how many reps you will repeat the process of 
+                    taking samples from the population (calculating 
+                    \\(\\bar{x}\\) for each)."),
+            tags$li("Use the button to see one of the individual samples chosen."),
+            tags$li("Observe the histograms of one sample and for \\(\\bar{x}\\) 
+                    from all samples."),
           ),
           div(style = "text-align: center",
               bsButton("go", "Go!", icon("bolt"), class =
                          "circle grow")),
           br(),
           h2("Acknowledgements:"),
-          p(
-            "This app was developed and coded by Yingjie (Chelsea) Wang with the help of Yubaihe Zhou. Selection of population densities was originally coded by Caihui Xiao.
-            This application was modified by Zhiruo Wang in 2019 and by Jiawei Wu in 2020."
-          ),
+          p("This app was developed and coded by Yingjie (Chelsea) Wang with the
+             help of Yubaihe Zhou. Selection of population densities was originally 
+             coded by Caihui Xiao. This application was modified by Zhiruo Wang 
+            in 2019 and by Jiawei Wu in 2020."),
           
-          div(class = "updated", "Last Update: 06/22/2020 by WJW.")
+          div(class = "updated", "Last Update: 09/18/2020 by LMH.")
           
         )
       ),
@@ -96,31 +86,29 @@ shinyUI(dashboardPage(
             following information that will be used in the app."
         ),
         
-        
-        #https://online.stat.psu.edu/stat100/lesson/3/3.2
-        #"https://online.stat.psu.edu/stat200/lesson/2/2.2/2.2.3"
-        
         tags$ul(
-          tags$li("This app uses four continuous distributions: right (positive) skewed, left (negative) skewed, symmetric, and bimodal.
-          While in depth understanding of these distributions is not required, you may wish to review this ",
+          tags$li("This app uses four continuous distributions: right (positive) 
+                   skewed, left (negative) skewed, symmetric, and bimodal. While 
+                  in depth understanding of these distributions is not required, 
+                  you may wish to review this ",
                   tags$a(href="https://online.stat.psu.edu/stat100/lesson/3/3.2#graphshapes", "Stat 100 Table of Graph Shapes"),
                   ".",),
-          tags$li("One of the distributions is based upon rolls of an astragalus. The astragalus (ankle or heel bone) of animals were used in ancient times as a forerunner of modern dice. 
-                  When a sheep astragalus is thrown into the air it can land on one of four sides, which were associated with the numbers 
-                  1, 3, 4, and 6. Two sides (the 3 and the 4) are wider and each come up about 40% of the time, while the narrower sides 
-                  (the 1 and the 6) each come up about 10% of the time. An image of an astralagus is shown below.")
+          tags$li("One of the distributions is based upon rolls of an astragalus. 
+                  The astragalus (ankle or heel bone) of animals were used in 
+                  ancient times as a forerunner of modern dice. When a sheep 
+                  astragalus is thrown into the air it can land on one of four 
+                  sides, which were associated with the numbers 1, 3, 4, and 6. 
+                  Two sides (the 3 and the 4) are wider and each come up about 
+                  40% of the time, while the narrower sides (the 1 and the 6) 
+                  each come up about 10% of the time. An image of an astralagus 
+                  is shown below.")
         ),
         HTML('<center><figure><img src="astragalus.jpg" alt="Picture of an astragalus" width="600"><figcaption>image by Yaan, 2007</figcaption></figure></center>'),
       ),
       
-      
-      
-      
-      
       # Explore Law of Large Numbers Tab
       tabItem(
         tabName = "largeNumber",
-        
         tags$head(tags$style(
           HTML("input[type=\"number\"] {width: 60px;}")
         )),
@@ -164,16 +152,8 @@ shinyUI(dashboardPage(
                     step = 0.01,
                     ticks = FALSE
                   ),
-                  #fluidRow(
-                  #column(width=8,"min"),
-                  #column(width=9, ""),
-                  #column(width=2,"max")),
                   div(style = "position: absolute; left: 0.5em; top: 9em", "min"),
                   div(style = "position: absolute; right: 0.5em; top: 9em", "max"),
-                  br(),
-                  br(),
-                  actionButton("new1", "show one of the samples", icon("retweet"), style =
-                                 "color: #fff; background-color: #337ab7; border-color: #2e6da4")
                 ),
                 conditionalPanel(
                   condition = "input.popDist=='rightskewed'",
@@ -186,16 +166,8 @@ shinyUI(dashboardPage(
                     step = 0.01,
                     ticks = FALSE
                   ),
-                  #fluidRow(
-                  #column(width=8,"min"),
-                  #column(width=9, ""),
-                  #column(width=2,"max")),
                   div(style = "position: absolute; left: 0.5em; top: 9em", "min"),
-                  div(style = "position: absolute; right: 0.5em; top: 9em", "max"),
-                  br(),
-                  br(),
-                  actionButton("new2", "show one of the samples", icon("retweet"), style =
-                                 "color: #fff; background-color: #337ab7; border-color: #2e6da4")
+                  div(style = "position: absolute; right: 0.5em; top: 9em", "max")
                 ),
                 conditionalPanel(
                   condition = "input.popDist=='symmetric'",
@@ -208,20 +180,11 @@ shinyUI(dashboardPage(
                     step = 0.01,
                     ticks = FALSE
                   ),
-                  #fluidRow(
-                  #column(width=8,"U-shaped"),
-                  #column(width=9, ""),
-                  #column(width=2,"Bell-shaped")),
                   div(style = "position: absolute; left: 0.5em; top: 9em", "U"),
                   div(style = "position: absolute; left: 0.5em; top: 10em", "Shaped"),
                   div(style = "position: absolute; right: 0.5em; top: 9em", "Bell"),
                   div(style = "position: absolute; right: 0.5em; top: 10em", "Shaped"),
-                  br(),
-                  br(),
-                  br(),
-                  actionButton("new3", "show one of the samples", icon("retweet"), style =
-                                 "color: #fff; background-color: #337ab7; border-color: #2e6da4")
-                ),
+                  ),
                 conditionalPanel(
                   condition = "input.popDist=='bimodal'",
                   
@@ -233,18 +196,7 @@ shinyUI(dashboardPage(
                     value = 50,
                     ticks = FALSE,
                     post = "%"
-                  ),
-                  
-                  
-                  #fluidRow(
-                  #column(width=8,"min"),
-                  #column(width=9, ""),
-                  #column(width=2,"max")),
-                  
-                  
-                  actionButton("new4", "show one of the samples", icon("retweet"), style =
-                                 "color: #fff; background-color: #337ab7; border-color: #2e6da4")
-                ),
+                  )),
                 conditionalPanel(
                   condition = "input.popDist=='poisson'",
                   
@@ -259,20 +211,7 @@ shinyUI(dashboardPage(
                   conditionalPanel(
                     condition = "input.poissonmean==0",
                     "Note: When the mean is set to 0, the number of accidents is always 0, so the variance is 0."
-                  ),
-                  
-                  actionButton("new5", "show one of the samples", icon("retweet"), style =
-                                 "color: #fff; background-color: #337ab7; border-color: #2e6da4")
-                ),
-                
-                conditionalPanel(
-                  condition = "input.popDist=='astragalus'",
-                  
-                  #sliderInput("poissonmean","Mean:", min = 0.1, max = 10, value = 1, step= 0.1),
-                  
-                  actionButton("new6", "show one of the samples", icon("retweet"), style =
-                                 "color: #fff; background-color: #337ab7; border-color: #2e6da4")
-                ),
+                  )),
                 
                 #Playlist shuffle
                 conditionalPanel(
@@ -334,7 +273,7 @@ shinyUI(dashboardPage(
                   condition = "input.popDist == 'leftskewed'",
                   sliderInput(
                     "leftsize",
-                    "sample size (n)",
+                    "Sample size (n)",
                     min = 1,
                     max = 50,
                     value = 10
@@ -352,7 +291,7 @@ shinyUI(dashboardPage(
                   condition = "input.popDist == 'rightskewed'",
                   sliderInput(
                     "rightsize",
-                    "sample size (n)",
+                    "Sample size (n)",
                     min = 1,
                     max = 50,
                     value = 10
@@ -372,7 +311,7 @@ shinyUI(dashboardPage(
                   
                   sliderInput(
                     "symsize",
-                    "sample size (n)",
+                    "Sample size (n)",
                     min = 1,
                     max = 50,
                     value = 10
@@ -391,7 +330,7 @@ shinyUI(dashboardPage(
                   condition = "input.popDist == 'astragalus'",
                   sliderInput(
                     "assize",
-                    "sample size (n)",
+                    "Sample size (n)",
                     min = 1,
                     max = 50,
                     value = 10
@@ -411,7 +350,7 @@ shinyUI(dashboardPage(
                   
                   sliderInput(
                     "bisize",
-                    "sample size (n)",
+                    "Sample size (n)",
                     min = 1,
                     max = 50,
                     value = 10
@@ -430,7 +369,7 @@ shinyUI(dashboardPage(
                   condition = "input.popDist == 'poisson'",
                   sliderInput(
                     "posize",
-                    "sample size (n)",
+                    "Sample size (n)",
                     min = 1,
                     max = 50,
                     value = 10
@@ -449,7 +388,7 @@ shinyUI(dashboardPage(
                   condition = "input.popDist == 'Playlistshuffle'",
                   sliderInput(
                     "Playlistsize",
-                    "sample size (n)",
+                    "Sample size (n)",
                     min = 1,
                     max = 50,
                     value = 10
@@ -462,8 +401,6 @@ shinyUI(dashboardPage(
                     max = 5000,
                     value = 1000
                   ),
-                  actionButton("new7", "show one of the samples", icon("retweet"), style =
-                                 "color: #fff; background-color: #337ab7; border-color: #2e6da4"),
                   radioButtons(
                     "ptype",
                     "Genre to track:",
@@ -496,23 +433,15 @@ shinyUI(dashboardPage(
                              plotOutput('poissonpop')),
             conditionalPanel(
               condition = "input.popDist == 'Playlistshuffle'",
-              conditionalPanel(condition =
-                                 "input.ptype== 'Jazz'",
-                               plotOutput("Plot1")),
-              conditionalPanel(condition =
-                                 "input.ptype == 'Rock'",
-                               plotOutput('Plot2')),
-              conditionalPanel(condition =
-                                 "input.ptype == 'Country'",
-                               plotOutput('Plot3')),
-              conditionalPanel(condition =
-                                 "input.ptype == 'Hip-hop'",
-                               plotOutput('Plot4'))
-              
+              plotOutput("playlistPlot")
             )
           )
         ),
         br(),
+        actionButton("new", 
+                     "Show one of the samples", 
+                     icon("retweet"), 
+                     style = "color: #fff; background-color: #337ab7; border-color: #2e6da4"),
         fluidRow(
           column(
             6,
@@ -530,14 +459,7 @@ shinyUI(dashboardPage(
                              plotOutput('plotpoisson1')),
             conditionalPanel(
               condition = "input.popDist =='Playlistshuffle'",
-              conditionalPanel(condition = "input.ptype== 'Jazz'",
-                               plotOutput("Plot01")),
-              conditionalPanel(condition = "input.ptype=='Rock' ",
-                               plotOutput("Plot02")),
-              conditionalPanel(condition = "input.ptype=='Country'",
-                               plotOutput("Plot03")),
-              conditionalPanel(condition = "input.ptype=='Hip-hop'",
-                               plotOutput("Plot04"))
+              plotOutput("playlistSampleMean")
             )
           ),
           column(
@@ -598,43 +520,13 @@ shinyUI(dashboardPage(
             ),
             conditionalPanel(
               condition = "input.popDist =='Playlistshuffle'",
-              conditionalPanel(condition = "input.ptype== 'Jazz'",
-                               plotOutput("Plot10")),
+              plotOutput("allSamplePlaylist"),
               bsPopover(
-                "Plot10",
+                "allSamplePlaylist",
                 "All Samples Histogram",
                 "Histogram of x-bar values from each rep. The blue line shows the normal approximation.",
                 trigger = "hover",
                 placement = "top"
-              ),
-              conditionalPanel(condition = "input.ptype=='Rock' ",
-                               plotOutput("Plot20")),
-              bsPopover(
-                "Plot20",
-                "All Samples Histogram",
-                "Histogram of x-bar values from each rep. The blue line shows the normal approximation.",
-                trigger = "hover",
-                placement = "top"
-              ),
-              conditionalPanel(condition = "input.ptype=='Country'",
-                               plotOutput("Plot30")),
-              bsPopover(
-                "Plot30",
-                "All Samples Histogram",
-                "Histogram of x-bar values from each rep. The blue line shows the normal approximation.",
-                trigger = "hover",
-                placement = "top"
-              ),
-              conditionalPanel(
-                condition = "input.ptype=='Hip-hop'",
-                plotOutput("Plot40"),
-                bsPopover(
-                  "Plot40",
-                  "All Samples Histogram",
-                  "Histogram of x-bar values from each rep. The blue line shows the normal approximation.",
-                  trigger = "hover",
-                  placement = "top"
-                )
               )
               
             )
