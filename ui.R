@@ -55,10 +55,10 @@ shinyUI(
             h2("Instructions"),
             tags$ol(
               tags$li(
-                "Pick a population from one of the continuous types (left-skewed;
-              right-skewed; symmetric; or bimodal) or one of the discrete
-              examples (rolls of an astragalus; random songs from an Playlist
-              shuffle; or accident occurrence)."),
+                "Pick a population from one of the continuous types (left-skewed,
+              right-skewed, symmetric, or bimodal) or one of the discrete
+              examples (rolls of an astragalus, random songs from an Playlist
+              shuffle, or accident occurrence)."),
               tags$li("Use the sliders to adjust the parameters of the population
                     model you chosen."),
               tags$li("Use the sliders to decide the sample size (n) you want for
