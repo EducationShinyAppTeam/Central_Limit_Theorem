@@ -350,8 +350,8 @@ shinyServer(function(session, input, output) {
     input$prop / 100
   })
 
-  # Population for biomodel
-  output$plotbiomodel1 <- renderPlot({
+  # Population for bimodal
+  output$plotbimodal1 <- renderPlot({
     t <- 1 / (input$bisize * input$bireps)
     y <- seq(0, 1, t)
     z <- seq(1, 0, -t)
@@ -492,14 +492,14 @@ shinyServer(function(session, input, output) {
 
 
   # One Sample Histogram
-  output$plotbiomodel2 <- renderPlot({
+  output$plotbimodal2 <- renderPlot({
     matrix <- firstfifData4()
     input$new
     singleSample(matrix, input$bireps, bw = .5)
   })
 
   # All Sample Histogram
-  output$plotbiomodel3 <- renderPlot({
+  output$plotbimodal3 <- renderPlot({
     vector <- data4()
     allSample(vector, min(80, input$bireps))
   })

@@ -417,31 +417,92 @@ shinyUI(
               width = 6,
               conditionalPanel(
                 condition = "input.popDist == 'leftskewed'",
-                plotOutput('plotleft1')
+                plotOutput('plotleft1'),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('plotleft1').setAttribute('aria-label',
+                  `The population graph shows the density curve for a process
+                  which has a left (or negative) skewness, making a long tail on
+                  the left. You can control the amount of skewness with the
+                  skewness slider.`)
+                  })"
+                ))
               ),
               conditionalPanel(
                 condition = "input.popDist == 'rightskewed'",
-                plotOutput('plotright1')
+                plotOutput('plotright1'),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('plotright1').setAttribute('aria-label',
+                  `The population graph shows the density curve for a process
+                  which has a right (or positive) skewness, making a long tail on
+                  the right. You can control the amount of skewness with the
+                  skewness slider.`)
+                  })"
+                ))
               ),
               conditionalPanel(
                 condition = "input.popDist == 'symmetric'",
-                plotOutput('plotsymmetric1')
+                plotOutput('plotsymmetric1'),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('plotsymmetric1').setAttribute('aria-label',
+                  `The population graph shows the density curve for a process
+                  which is symmetric. You can make the process generally produce
+                  values at the two extremes (a u-shape), produce them uniformly
+                  (rectangular) or concentrate values in the middle (bell-shaped).`)
+                  })"
+                ))
               ),
               conditionalPanel(
                 condition = "input.popDist == 'astragalus'",
-                plotOutput("pop")
+                plotOutput("pop"),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('pop').setAttribute('aria-label',
+                  `The population graph shows the probabilities for getting each
+                  particular outcome when tossign the astragalus. A 1 and 6 each
+                  occur 10% of the time, while 3 and 4 both occur 40% of the time.`)
+                  })"
+                ))
               ),
               conditionalPanel(
                 condition = "input.popDist == 'bimodal'",
-                plotOutput('plotbiomodel1')
+                plotOutput('plotbimodal1'),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('plotbimodal1').setAttribute('aria-label',
+                  `The population graph shows the density curve for a process
+                  which is bimodal. You may adjust what percentage occurs under
+                  the right most mode with the slider.`)
+                  })"
+                ))
               ),
               conditionalPanel(
                 condition = "input.popDist == 'poisson'",
-                plotOutput('poissonpop')
+                plotOutput('poissonpop'),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('poissonpop').setAttribute('aria-label',
+                  `The population graph shows the probabilities for the number
+                  of accidents which occur. You may control the mean (the unit
+                   rate of accidents) with the mean slider.`)
+                  })"
+                ))
               ),
               conditionalPanel(
                 condition = "input.popDist == 'Playlistshuffle'",
-                plotOutput("playlistPlot")
+                plotOutput("playlistPlot"),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('playlistPlot').setAttribute('aria-label',
+                  `The population graph shows the probability for listening to a
+                  song that is in the genre you're opted to track. You may set
+                  how many songs of each genre there are with the jazz, rock,
+                  country, and hip-hop inputs. You may then choose which genre
+                  to track with the genre to track input.`)
+                  })"
+                ))
               )
             )
           ),
@@ -451,41 +512,115 @@ shinyUI(
           ### Sample Results ----
           fluidRow(
             column(
-              6,
+              width = 6,
               conditionalPanel(
                 condition = "input.popDist == 'leftskewed'",
-                plotOutput('plotleft2')
+                plotOutput('plotleft2'),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('plotleft2').setAttribute('aria-label',
+                  `This histogram displays one sample of values randomly selected
+                  from the population. You may change the size of the sample using
+                  the sample size (n) slider. Clicking the Show a new sample
+                  button will generate a new sample.`)
+                  })"
+                ))
               ),
               conditionalPanel(
                 condition = "input.popDist == 'rightskewed'",
-                plotOutput('plotright2')
+                plotOutput('plotright2'),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('plotright2').setAttribute('aria-label',
+                  `This histogram displays one sample of values randomly selected
+                  from the population. You may change the size of the sample using
+                  the sample size (n) slider. Clicking the Show a new sample
+                  button will generate a new sample.`)
+                  })"
+                ))
               ),
               conditionalPanel(
                 condition = "input.popDist == 'symmetric'",
-                plotOutput('plotsymmetric2')
+                plotOutput('plotsymmetric2'),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('plotsymmetric2').setAttribute('aria-label',
+                  `This histogram displays one sample of values randomly selected
+                  from the population. You may change the size of the sample using
+                  the sample size (n) slider. Clicking the Show a new sample
+                  button will generate a new sample.`)
+                  })"
+                ))
               ),
               conditionalPanel(
                 condition = "input.popDist == 'astragalus'",
-                plotOutput("line2")
+                plotOutput("line2"),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('plotline2').setAttribute('aria-label',
+                  `This histogram displays one sample of values randomly selected
+                  from the population. You may change the size of the sample using
+                  the sample size (n) slider. Clicking the Show a new sample
+                  button will generate a new sample.`)
+                  })"
+                ))
               ),
               conditionalPanel(
                 condition = "input.popDist == 'bimodal'",
-                plotOutput('plotbiomodel2')
+                plotOutput('plotbimodal2'),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('plotbimodal2').setAttribute('aria-label',
+                  `This histogram displays one sample of values randomly selected
+                  from the population. You may change the size of the sample using
+                  the sample size (n) slider. Clicking the Show a new sample
+                  button will generate a new sample.`)
+                  })"
+                ))
               ),
               conditionalPanel(
                 condition = "input.popDist == 'poisson'",
-                plotOutput('plotpoisson1')
+                plotOutput('plotpoisson1'),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('plotpoisson1').setAttribute('aria-label',
+                  `This histogram displays one sample of values randomly selected
+                  from the population. You may change the size of the sample using
+                  the sample size (n) slider. Clicking the Show a new sample
+                  button will generate a new sample.`)
+                  })"
+                ))
               ),
               conditionalPanel(
                 condition = "input.popDist =='Playlistshuffle'",
-                plotOutput("playlistSampleMean")
+                plotOutput("playlistSampleMean"),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('playlistSampleMean').setAttribute('aria-label',
+                  `This histogram displays one sample of values randomly selected
+                  from the population. You may change the size of the sample using
+                  the sample size (n) slider. Clicking the Show a new sample
+                  button will generate a new sample.`)
+                  })"
+                ))
               )
             ),
             column(
-              6,
+              width = 6,
               conditionalPanel(
                 condition = "input.popDist == 'leftskewed'",
-                plotOutput('plotleft3')
+                plotOutput('plotleft3'),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('plotleft3').setAttribute('aria-label',
+                  `This histogram displays the collection of values of the sample
+                  arithmetic mean when you repeatedly draw new samples. Each
+                  sample has the same sample size which you may set using the
+                  sample size (n) slider. The number of reps slider sets how many
+                  times you repeated draw samples and calculate the value of the
+                  sample arithmetic mean.`)
+                  })"
+                ))
               ),
               bsPopover(
                 id = "plotleft3",
@@ -496,7 +631,18 @@ shinyUI(
               ),
               conditionalPanel(
                 condition = "input.popDist == 'rightskewed'",
-                plotOutput('plotright3')
+                plotOutput('plotright3'),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('plotright3').setAttribute('aria-label',
+                  `This histogram displays the collection of values of the sample
+                  arithmetic mean when you repeatedly draw new samples. Each
+                  sample has the same sample size which you may set using the
+                  sample size (n) slider. The number of reps slider sets how many
+                  times you repeated draw samples and calculate the value of the
+                  sample arithmetic mean.`)
+                  })"
+                ))
               ),
               bsPopover(
                 id = "plotright3",
@@ -507,7 +653,18 @@ shinyUI(
               ),
               conditionalPanel(
                 condition = "input.popDist == 'symmetric'",
-                plotOutput('plotsymmetric3')
+                plotOutput('plotsymmetric3'),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('plotsymmetric3').setAttribute('aria-label',
+                  `This histogram displays the collection of values of the sample
+                  arithmetic mean when you repeatedly draw new samples. Each
+                  sample has the same sample size which you may set using the
+                  sample size (n) slider. The number of reps slider sets how many
+                  times you repeated draw samples and calculate the value of the
+                  sample arithmetic mean.`)
+                  })"
+                ))
               ),
               bsPopover(
                 id = "plotsymmetric3",
@@ -518,7 +675,18 @@ shinyUI(
               ),
               conditionalPanel(
                 condition = "input.popDist == 'astragalus'",
-                plotOutput("line1")
+                plotOutput("line1"),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('plotline1').setAttribute('aria-label',
+                  `This histogram displays the collection of values of the sample
+                  arithmetic mean when you repeatedly draw new samples. Each
+                  sample has the same sample size which you may set using the
+                  sample size (n) slider. The number of reps slider sets how many
+                  times you repeated draw samples and calculate the value of the
+                  sample arithmetic mean.`)
+                  })"
+                ))
               ),
               bsPopover(
                 id = "line1",
@@ -529,10 +697,21 @@ shinyUI(
               ),
               conditionalPanel(
                 condition = "input.popDist == 'bimodal'",
-                plotOutput('plotbiomodel3')
+                plotOutput('plotbimodal3'),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('plotbimodal3').setAttribute('aria-label',
+                  `This histogram displays the collection of values of the sample
+                  arithmetic mean when you repeatedly draw new samples. Each
+                  sample has the same sample size which you may set using the
+                  sample size (n) slider. The number of reps slider sets how many
+                  times you repeated draw samples and calculate the value of the
+                  sample arithmetic mean.`)
+                  })"
+                ))
               ),
               bsPopover(
-                id = "plotbiomodel3",
+                id = "plotbimodal3",
                 title = "All Samples Histogram",
                 content = "Histogram of x-bar values from each rep. The blue line shows the normal approximation.",
                 trigger = "hover",
@@ -540,7 +719,18 @@ shinyUI(
               ),
               conditionalPanel(
                 condition = "input.popDist == 'poisson'",
-                plotOutput('plotpoisson2')
+                plotOutput('plotpoisson2'),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('plotpoisson2').setAttribute('aria-label',
+                  `This histogram displays the collection of values of the sample
+                  arithmetic mean when you repeatedly draw new samples. Each
+                  sample has the same sample size which you may set using the
+                  sample size (n) slider. The number of reps slider sets how many
+                  times you repeated draw samples and calculate the value of the
+                  sample arithmetic mean.`)
+                  })"
+                ))
               ),
               bsPopover(
                 id = "plotpoisson2",
@@ -552,6 +742,17 @@ shinyUI(
               conditionalPanel(
                 condition = "input.popDist =='Playlistshuffle'",
                 plotOutput("allSamplePlaylist"),
+                tags$script(HTML(
+                  "$(document).ready(function() {
+                  document.getElementById('allSamplePlaylist').setAttribute('aria-label',
+                  `This histogram displays the collection of values of the sample
+                  arithmetic mean when you repeatedly draw new samples. Each
+                  sample has the same sample size which you may set using the
+                  sample size (n) slider. The number of reps slider sets how many
+                  times you repeated draw samples and calculate the value of the
+                  sample arithmetic mean.`)
+                  })"
+                )),
                 bsPopover(
                   id = "allSamplePlaylist",
                   title = "All Samples Histogram",
